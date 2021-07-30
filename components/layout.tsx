@@ -25,7 +25,7 @@ import {
   PeopleAltOutlined,
   ApartmentOutlined,
   AssignmentOutlined,
-  DirectionsRunOutlined,
+  TrainOutlined,
   ExpandLess,
   ExpandMore,
   CodeOutlined,
@@ -163,21 +163,36 @@ export default function Layout({
           </ListItemIcon>
           <ListItemText primary="标签" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          onClick={() => {
+            window.open('https://jsun969.github.io');
+          }}
+        >
           <ListItemIcon>
             <ApartmentOutlined />
           </ListItemIcon>
           <ListItemText primary="小屋" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          onClick={() => {
+            window.open('https://msg.jsun.limecho.net');
+          }}
+        >
           <ListItemIcon>
             <AssignmentOutlined />
           </ListItemIcon>
           <ListItemText primary="留言" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          onClick={() => {
+            window.open('https://travellings.link');
+          }}
+          button
+        >
           <ListItemIcon>
-            <DirectionsRunOutlined />
+            <TrainOutlined />
           </ListItemIcon>
           <ListItemText primary="开往" />
         </ListItem>
