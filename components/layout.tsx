@@ -73,13 +73,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function Layout({ children, title }: { children: ReactNode; title: string }) {
+export default function Layout({
+  children,
+  title,
+  select,
+}: {
+  children: ReactNode;
+  title: string;
+  select: 'index' | 'code' | 'study' | 'status' | 'website' | 'game' | 'about' | 'friends' | 'tags';
+}) {
   const classes = useStyles();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [isDrawerOpen, toggleIsDrawerOpen] = useState<boolean>(false);
-  const [showArchive, toggleShowArchive] = useState<boolean>(false);
+  const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'status', 'website', 'game'].includes(select));
 
   const drawerContent = (
     <div className={classes.drawerContent}>
@@ -87,7 +95,7 @@ export default function Layout({ children, title }: { children: ReactNode; title
         <div className={classes.toolbar} />
       </Hidden>
       <List>
-        <ListItem button>
+        <ListItem button selected={select === 'index'}>
           <ListItemIcon>
             <HomeOutlined />
           </ListItemIcon>
@@ -106,50 +114,50 @@ export default function Layout({ children, title }: { children: ReactNode; title
           {showArchive ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={showArchive}>
-          <ListItem button className={classes.nestedList}>
+          <ListItem button className={classes.nestedList} selected={select === 'code'}>
             <ListItemIcon>
               <CodeOutlined />
             </ListItemIcon>
             <ListItemText primary="编程" />
           </ListItem>
-          <ListItem button className={classes.nestedList}>
+          <ListItem button className={classes.nestedList} selected={select === 'study'}>
             <ListItemIcon>
               <BookOutlined />
             </ListItemIcon>
             <ListItemText primary="学习" />
           </ListItem>
-          <ListItem button className={classes.nestedList}>
+          <ListItem button className={classes.nestedList} selected={select === 'status'}>
             <ListItemIcon>
               <QueryBuilderOutlined />
             </ListItemIcon>
             <ListItemText primary="状态" />
           </ListItem>
-          <ListItem button className={classes.nestedList}>
+          <ListItem button className={classes.nestedList} selected={select === 'website'}>
             <ListItemIcon>
               <LanguageOutlined />
             </ListItemIcon>
             <ListItemText primary="建站" />
           </ListItem>
-          <ListItem button className={classes.nestedList}>
+          <ListItem button className={classes.nestedList} selected={select === 'game'}>
             <ListItemIcon>
               <VideogameAssetOutlined />
             </ListItemIcon>
             <ListItemText primary="游戏" />
           </ListItem>
         </Collapse>
-        <ListItem button>
+        <ListItem button selected={select === 'about'}>
           <ListItemIcon>
             <AccountCircleOutlined />
           </ListItemIcon>
           <ListItemText primary="介绍" />
         </ListItem>
-        <ListItem button>
+        <ListItem button selected={select === 'friends'}>
           <ListItemIcon>
             <PeopleAltOutlined />
           </ListItemIcon>
           <ListItemText primary="友链" />
         </ListItem>
-        <ListItem button>
+        <ListItem button selected={select === 'tags'}>
           <ListItemIcon>
             <LocalOfferOutlined />
           </ListItemIcon>
