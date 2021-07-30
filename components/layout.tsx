@@ -12,7 +12,7 @@ import {
   ListItemText,
   Collapse,
   Divider,
-  Link as MuiLink,
+  Link,
   Hidden,
   Box,
 } from '@material-ui/core';
@@ -33,11 +33,11 @@ import {
   QueryBuilderOutlined,
   LanguageOutlined,
   VideogameAssetOutlined,
+  LocalOfferOutlined,
 } from '@material-ui/icons';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const drawerWidth = 170;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -151,6 +151,12 @@ export default function Layout({ children, title }: { children: ReactNode; title
         </ListItem>
         <ListItem button>
           <ListItemIcon>
+            <LocalOfferOutlined />
+          </ListItemIcon>
+          <ListItemText primary="标签" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
             <ApartmentOutlined />
           </ListItemIcon>
           <ListItemText primary="小屋" />
@@ -240,14 +246,14 @@ export default function Layout({ children, title }: { children: ReactNode; title
           </Typography>
           <Typography variant="body2" color="textSecondary" align="center">
             Powered by{' '}
-            <MuiLink
+            <Link
               color="inherit"
               onClick={() => {
                 window.open('https://github.com/jsun969/JBlog');
               }}
             >
               JBlog
-            </MuiLink>
+            </Link>
           </Typography>
         </footer>
       </main>
