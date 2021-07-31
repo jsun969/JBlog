@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../src/theme';
+import theme from '../utils/theme';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   React.useEffect(() => {
