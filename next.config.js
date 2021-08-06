@@ -5,5 +5,5 @@ module.exports = withTM(['@material-ui/core', '@material-ui/icons'])({
 });
 
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
 };
