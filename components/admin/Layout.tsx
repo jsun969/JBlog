@@ -82,7 +82,7 @@ export default function Layout({
 
   const [adminToken, setAdminToken] = useState<string>('');
   useEffect(() => {
-    setAdminToken(localStorage.getItem('adminToken') as string);
+    setAdminToken(localStorage.getItem('adminToken') ?? '');
   }, []);
   const { loading, error, data } = useQuery(GET_ADMIN_BY_TOKEN, {
     variables: {
