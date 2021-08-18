@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server-micro';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
-import { typeDefs } from './schemas';
-import { resolvers } from './resolvers';
+import { typeDefs } from './graphql/schemas';
+import { resolvers } from './graphql/resolvers';
 import { PageConfig } from 'next';
 import { MicroRequest } from 'apollo-server-micro/dist/types';
 import { ServerResponse } from 'http';

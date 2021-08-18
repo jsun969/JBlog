@@ -1,6 +1,14 @@
+import { gql } from 'apollo-server-micro';
 import jwt from 'jsonwebtoken';
 
-export const resolvers = {
+export const adminAuthSchema = gql`
+  type AdminAuth {
+    status: Boolean!
+    jwt: String
+  }
+`;
+
+export const adminAuthResolver = {
   Query: {
     adminAuth(_: unknown, { key, isJwt }: { key: string; isJwt: boolean }) {
       if (isJwt) {
