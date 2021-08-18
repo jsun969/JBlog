@@ -17,10 +17,17 @@ export const resolvers = {
           };
         }
       } else {
-        return {
-          status: key === process.env.ADMIN_KEY,
-          jwt: jwt.sign({ author: 'jsun969' }, process.env.JWT_SECRET as string, { expiresIn: 86400 }),
-        };
+        if (key === process.env.ADMIN_KEY) {
+          return {
+            status: true,
+            jwt: jwt.sign({ author: 'jsun969' }, process.env.JWT_SECRET as string, { expiresIn: 86400 }),
+          };
+        } else {
+          return {
+            status: false,
+            jwt: null,
+          };
+        }
       }
     },
   },
