@@ -14,11 +14,12 @@ import {
   TextField,
   Button,
   Grid,
+  Box,
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import client from '../../lib/apolloClient';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 
 const drawerWidth = 100;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,6 +56,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+const GET_ADMIN_BY_TOKEN = gql`
+  query AdminAuth($key: String!) {
+    adminAuth(key: $key, isJwt: true) {
+      status
+    }
+  }
+`;
+
 export default function Layout({
   children,
   select = 'write',
@@ -70,6 +79,16 @@ export default function Layout({
   const [isLogin, toggleIsLogin] = useState<boolean>(false);
   const [key, setKey] = useState<string>('');
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
+
+  const [adminToken, setAdminToken] = useState<string>('');
+  useEffect(() => {
+    setAdminToken(localStorage.getItem('adminToken') as string);
+  }, []);
+  const { loading, error, data } = useQuery(GET_ADMIN_BY_TOKEN, {
+    variables: {
+      key: adminToken,
+    },
+  });
 
   const handleLogin = async () => {
     try {
@@ -129,7 +148,7 @@ export default function Layout({
       <header>
         <AppBar position="sticky" className={classes.appBar}>
           <Toolbar>
-            {isLogin && (
+            {(isLogin || data?.adminAuth.status) && (
               <Hidden smUp implementation="css">
                 <IconButton
                   edge="start"
@@ -148,7 +167,7 @@ export default function Layout({
             </Typography>
           </Toolbar>
         </AppBar>
-        {isLogin && (
+        {(isLogin || data?.adminAuth.status) && (
           <nav>
             <Hidden smUp implementation="css">
               <SwipeableDrawer
@@ -174,41 +193,49 @@ export default function Layout({
         )}
       </header>
 
-      <main className={isLogin ? classes.main : undefined}>
-        {isLogin ? (
+      <main className={isLogin || data?.adminAuth.status ? classes.main : undefined}>
+        {isLogin || data?.adminAuth.status ? (
           <Typography paragraph className={classes.content}>
             {children}
           </Typography>
         ) : (
           <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
-            <Paper className={classes.loginPaper}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    placeholder="后台KEY"
-                    fullWidth
-                    type="password"
-                    inputProps={{ maxLength: 30 }}
-                    value={key}
-                    onChange={(event) => {
-                      setKey(event.target.value);
-                    }}
-                    onKeyPress={(event) => {
-                      if (event.key === 'Enter') {
-                        handleLogin();
-                      }
-                    }}
-                    disabled={loginLoading}
-                  />
+            {loading ? (
+              <Typography>加载中...</Typography>
+            ) : error ? (
+              <Box m={5}>
+                <Typography>{`${error}`}</Typography>
+              </Box>
+            ) : (
+              <Paper className={classes.loginPaper}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      placeholder="后台KEY"
+                      fullWidth
+                      type="password"
+                      inputProps={{ maxLength: 30 }}
+                      value={key}
+                      onChange={(event) => {
+                        setKey(event.target.value);
+                      }}
+                      onKeyPress={(event) => {
+                        if (event.key === 'Enter') {
+                          handleLogin();
+                        }
+                      }}
+                      disabled={loginLoading}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button variant="contained" color="primary" fullWidth onClick={handleLogin} disabled={loginLoading}>
+                      登陆
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button variant="contained" color="primary" fullWidth onClick={handleLogin} disabled={loginLoading}>
-                    登陆
-                  </Button>
-                </Grid>
-              </Grid>
-            </Paper>
+              </Paper>
+            )}
           </Grid>
         )}
       </main>
