@@ -9,7 +9,7 @@ export default function Home() {
         <title>荆棘小栈 - 后台</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>lol</Layout>
+      <Layout select="index">lol</Layout>
     </>
   );
 }
