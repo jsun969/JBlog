@@ -23,6 +23,6 @@ const startServer = apolloServer.start();
 export default async function handler(req: MicroRequest, res: ServerResponse) {
   await startServer;
   await apolloServer.createHandler({
-    path: '/api/graphql',
+    path: '/api',
   })(req, res);
 }
