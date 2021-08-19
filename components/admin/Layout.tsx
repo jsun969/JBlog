@@ -16,10 +16,11 @@ import {
   Grid,
   Box,
 } from '@material-ui/core';
-import { Menu } from '@material-ui/icons';
+import { ExitToApp, Menu } from '@material-ui/icons';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import client from '../../lib/apolloClient';
 import { gql, useQuery } from '@apollo/client';
+import LogoutDialog from './LogoutDialog';
 
 const drawerWidth = 100;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -73,6 +74,7 @@ export default function Layout({
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [isDrawerOpen, toggleIsDrawerOpen] = useState<boolean>(false);
+  const [showLogoutDialog, toggleShowLogoutDialog] = useState<boolean>(false);
   const [isLogin, toggleIsLogin] = useState<boolean>(false);
   const [key, setKey] = useState<string>('');
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
@@ -86,6 +88,9 @@ export default function Layout({
       key: adminToken,
     },
   });
+  useEffect(() => {
+    toggleIsLogin(data?.adminAuth.status);
+  }, [data]);
 
   const handleLogin = async () => {
     try {
@@ -105,9 +110,11 @@ export default function Layout({
         localStorage.setItem('adminToken', data.adminAuth.jwt);
         toggleIsLogin(true);
       }
+      setKey('');
       setLoginLoading(false);
     } catch (error) {
       console.log(error);
+      setKey('');
       setLoginLoading(false);
     }
   };
@@ -145,7 +152,7 @@ export default function Layout({
       <header>
         <AppBar position="sticky" className={classes.appBar}>
           <Toolbar>
-            {(isLogin || data?.adminAuth.status) && (
+            {isLogin && (
               <Hidden smUp implementation="css">
                 <IconButton
                   edge="start"
@@ -162,9 +169,20 @@ export default function Layout({
             <Typography variant="h6" className={classes.title}>
               荆棘小栈 - 后台
             </Typography>
+            {isLogin && (
+              <IconButton
+                edge="end"
+                color="inherit"
+                onClick={() => {
+                  toggleShowLogoutDialog(true);
+                }}
+              >
+                <ExitToApp />
+              </IconButton>
+            )}
           </Toolbar>
         </AppBar>
-        {(isLogin || data?.adminAuth.status) && (
+        {isLogin && (
           <nav>
             <Hidden smUp implementation="css">
               <SwipeableDrawer
@@ -190,8 +208,8 @@ export default function Layout({
         )}
       </header>
 
-      <main className={isLogin || data?.adminAuth.status ? classes.main : undefined}>
-        {isLogin || data?.adminAuth.status ? (
+      <main className={isLogin ? classes.main : undefined}>
+        {isLogin ? (
           <Box m={3}>{children}</Box>
         ) : (
           <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
@@ -234,6 +252,17 @@ export default function Layout({
           </Grid>
         )}
       </main>
+      <LogoutDialog
+        open={showLogoutDialog}
+        onClose={() => {
+          toggleShowLogoutDialog(false);
+        }}
+        onSure={() => {
+          toggleIsLogin(false);
+          localStorage.removeItem('adminToken');
+          toggleShowLogoutDialog(false);
+        }}
+      />
     </>
   );
 }
