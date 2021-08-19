@@ -10,9 +10,6 @@ import {
   ListItem,
   ListItemText,
   Hidden,
-  Paper,
-  TextField,
-  Button,
   Grid,
   Box,
 } from '@material-ui/core';
@@ -21,6 +18,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import client from '../../lib/apolloClient';
 import { gql, useQuery } from '@apollo/client';
 import LogoutDialog from './LogoutDialog';
+import LoginForm from './LoginForm';
 
 const drawerWidth = 100;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -76,7 +74,7 @@ export default function Layout({
   const [isDrawerOpen, toggleIsDrawerOpen] = useState<boolean>(false);
   const [showLogoutDialog, toggleShowLogoutDialog] = useState<boolean>(false);
   const [isLogin, toggleIsLogin] = useState<boolean>(false);
-  const [key, setKey] = useState<string>('');
+  const [passKey, setPassKey] = useState<string>('');
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
 
   const [adminToken, setAdminToken] = useState<string>('');
@@ -104,17 +102,17 @@ export default function Layout({
             }
           }
         `,
-        variables: { key },
+        variables: { key: passKey },
       });
       if (data.adminAuth.status) {
         localStorage.setItem('adminToken', data.adminAuth.jwt);
         toggleIsLogin(true);
       }
-      setKey('');
+      setPassKey('');
       setLoginLoading(false);
     } catch (error) {
       console.log(error);
-      setKey('');
+      setPassKey('');
       setLoginLoading(false);
     }
   };
@@ -220,34 +218,14 @@ export default function Layout({
                 <Typography>{`${error}`}</Typography>
               </Box>
             ) : (
-              <Paper className={classes.loginPaper}>
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      placeholder="后台KEY"
-                      fullWidth
-                      type="password"
-                      inputProps={{ maxLength: 30 }}
-                      value={key}
-                      onChange={(event) => {
-                        setKey(event.target.value);
-                      }}
-                      onKeyPress={(event) => {
-                        if (event.key === 'Enter') {
-                          handleLogin();
-                        }
-                      }}
-                      disabled={loginLoading}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button variant="contained" color="primary" fullWidth onClick={handleLogin} disabled={loginLoading}>
-                      登陆
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Paper>
+              <LoginForm
+                passKey={passKey}
+                onChangeKey={(value) => {
+                  setPassKey(value);
+                }}
+                onLogin={handleLogin}
+                disabled={loginLoading}
+              />
             )}
           </Grid>
         )}
