@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginLeft: drawerWidth,
     },
   },
-  content: {
-    margin: theme.spacing(3),
-  },
   loginPaper: {
     padding: theme.spacing(3),
     margin: theme.spacing(2),
@@ -82,7 +79,7 @@ export default function Layout({
 
   const [adminToken, setAdminToken] = useState<string>('');
   useEffect(() => {
-    setAdminToken(localStorage.getItem('adminToken') ?? '');
+    setAdminToken(localStorage.getItem('adminToken') || '');
   }, []);
   const { loading, error, data } = useQuery(GET_ADMIN_BY_TOKEN, {
     variables: {
@@ -195,9 +192,7 @@ export default function Layout({
 
       <main className={isLogin || data?.adminAuth.status ? classes.main : undefined}>
         {isLogin || data?.adminAuth.status ? (
-          <Typography paragraph className={classes.content}>
-            {children}
-          </Typography>
+          <Box m={3}>{children}</Box>
         ) : (
           <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
             {loading ? (
