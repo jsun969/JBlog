@@ -235,7 +235,7 @@ export default function Layout({
         onClose={() => {
           toggleShowLogoutDialog(false);
         }}
-        onSure={() => {
+        onConfirm={() => {
           toggleIsLogin(false);
           localStorage.removeItem('adminToken');
           toggleShowLogoutDialog(false);

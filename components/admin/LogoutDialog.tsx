@@ -1,9 +1,17 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
-export default function LogoutDialog({ open, onClose, onSure }: { open: boolean; onClose: () => void; onSure: () => void }) {
+export default function LogoutDialog({
+  open,
+  onClose,
+  onConfirm,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>确定登出后台?</DialogTitle>
+      <DialogTitle>登出后台?</DialogTitle>
       <DialogContent>
         <DialogContentText>登出后需要重新输入Key才能登陆</DialogContentText>
       </DialogContent>
@@ -11,7 +19,7 @@ export default function LogoutDialog({ open, onClose, onSure }: { open: boolean;
         <Button onClick={onClose} color="primary">
           取消
         </Button>
-        <Button onClick={onSure} color="primary" autoFocus>
+        <Button onClick={onConfirm} color="primary" autoFocus>
           确定
         </Button>
       </DialogActions>
