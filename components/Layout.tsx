@@ -30,9 +30,9 @@ import {
   ExpandMore,
   CodeOutlined,
   BookOutlined,
-  QueryBuilderOutlined,
   LanguageOutlined,
   VideogameAssetOutlined,
+  QuestionAnswerOutlined,
   LocalOfferOutlined,
 } from '@material-ui/icons';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -80,14 +80,14 @@ export default function Layout({
 }: {
   children: ReactNode;
   title: string;
-  select: 'index' | 'code' | 'study' | 'status' | 'website' | 'game' | 'about' | 'friends' | 'tags';
+  select: 'index' | 'code' | 'study' | 'talk' | 'website' | 'game' | 'about' | 'friends' | 'tags';
 }) {
   const classes = useStyles();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [isDrawerOpen, toggleIsDrawerOpen] = useState<boolean>(false);
-  const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'status', 'website', 'game'].includes(select));
+  const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'website', 'game'].includes(select));
 
   const drawerContent = (
     <div className={classes.drawerContent}>
@@ -126,12 +126,6 @@ export default function Layout({
             </ListItemIcon>
             <ListItemText primary="学习" />
           </ListItem>
-          <ListItem button className={classes.nestedList} selected={select === 'status'}>
-            <ListItemIcon>
-              <QueryBuilderOutlined />
-            </ListItemIcon>
-            <ListItemText primary="状态" />
-          </ListItem>
           <ListItem button className={classes.nestedList} selected={select === 'website'}>
             <ListItemIcon>
               <LanguageOutlined />
@@ -150,6 +144,12 @@ export default function Layout({
             <AccountCircleOutlined />
           </ListItemIcon>
           <ListItemText primary="介绍" />
+        </ListItem>
+        <ListItem button selected={select === 'talk'}>
+          <ListItemIcon>
+            <QuestionAnswerOutlined />
+          </ListItemIcon>
+          <ListItemText primary="说说" />
         </ListItem>
         <ListItem button selected={select === 'friends'}>
           <ListItemIcon>
