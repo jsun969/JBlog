@@ -1,4 +1,7 @@
 import { query } from './query';
-import { adminAuthSchema } from './query/adminAuth';
+import { mutation } from './mutation';
 
-export const typeDefs = [query, adminAuthSchema];
+import { adminAuth } from './schemas/adminAuth';
+import { article } from './schemas/article';
+
+export const typeDefs = [query, mutation, adminAuth, article];

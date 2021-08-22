@@ -1,3 +1,4 @@
-import { adminAuthResolver } from './query/adminAuth';
+import { adminAuth } from './resolvers/adminAuth';
+import { createArticle } from './resolvers/createArticle';
 
-export const resolvers = { ...adminAuthResolver };
+export const resolvers = { ...adminAuth, ...createArticle };
