@@ -127,7 +127,7 @@ export default function Layout({
           <ListItemText primary="后台首页" />
         </ListItem>
         <ListItem button selected={select === 'list'}>
-          <ListItemText primary="文章列表" />
+          <ListItemText primary="文章管理" />
         </ListItem>
         <ListItem button selected={select === 'write'}>
           <ListItemText primary="撰写文章" />
@@ -136,7 +136,7 @@ export default function Layout({
           <ListItemText primary="评论管理" />
         </ListItem>
         <ListItem button selected={select === 'friends'}>
-          <ListItemText primary="管理友链" />
+          <ListItemText primary="友链管理" />
         </ListItem>
         <ListItem button selected={select === 'about'}>
           <ListItemText primary="修改关于" />
