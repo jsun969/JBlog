@@ -19,6 +19,7 @@ import apolloClient from '../../lib/apolloClient';
 import { gql, useQuery } from '@apollo/client';
 import LogoutDialog from './LogoutDialog';
 import LoginForm from './LoginForm';
+import Link from 'next/link';
 
 const drawerWidth = 100;
 const useStyles = makeStyles((theme: Theme) => ({
@@ -123,15 +124,19 @@ export default function Layout({
         <div className={classes.toolbar} />
       </Hidden>
       <List>
-        <ListItem button selected={select === 'index'}>
-          <ListItemText primary="后台首页" />
-        </ListItem>
+        <Link href="/admin" passHref>
+          <ListItem button selected={select === 'index'}>
+            <ListItemText primary="后台首页" />
+          </ListItem>
+        </Link>
         <ListItem button selected={select === 'list'}>
           <ListItemText primary="文章管理" />
         </ListItem>
-        <ListItem button selected={select === 'write'}>
-          <ListItemText primary="撰写文章" />
-        </ListItem>
+        <Link href="/admin/write" passHref>
+          <ListItem button selected={select === 'write'}>
+            <ListItemText primary="撰写文章" />
+          </ListItem>
+        </Link>
         <ListItem button selected={select === 'comment'}>
           <ListItemText primary="评论管理" />
         </ListItem>
