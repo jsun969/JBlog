@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { ExitToApp, Menu } from '@material-ui/icons';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import client from '../../lib/apolloClient';
+import apolloClient from '../../lib/apolloClient';
 import { gql, useQuery } from '@apollo/client';
 import LogoutDialog from './LogoutDialog';
 import LoginForm from './LoginForm';
@@ -93,7 +93,7 @@ export default function Layout({
   const handleLogin = async () => {
     try {
       setLoginLoading(true);
-      const { data } = await client.query({
+      const { data } = await apolloClient.query({
         query: gql`
           query AdminAuth($key: String!) {
             adminAuth(key: $key, isJwt: false) {

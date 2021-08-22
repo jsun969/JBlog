@@ -1,8 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-const client = new ApolloClient({
+const apolloClient = new ApolloClient({
   uri: '/api',
   cache: new InMemoryCache(),
 });
 
-export default client;
+export default apolloClient;

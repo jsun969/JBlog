@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../lib/theme';
 import { ApolloProvider } from '@apollo/client';
-import client from '../lib/apolloClient';
+import apolloClient from '../lib/apolloClient';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   React.useEffect(() => {
@@ -16,7 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
