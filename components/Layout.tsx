@@ -34,6 +34,7 @@ import {
   VideogameAssetOutlined,
   QuestionAnswerOutlined,
   LocalOfferOutlined,
+  NaturePeopleOutlined,
 } from '@material-ui/icons';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import dayjs from 'dayjs';
@@ -80,7 +81,7 @@ export default function Layout({
 }: {
   children: ReactNode;
   title: string;
-  select: 'index' | 'code' | 'study' | 'talk' | 'website' | 'game' | 'about' | 'friends' | 'tags';
+  select: 'index' | 'code' | 'study' | 'talk' | 'website' | 'game' | 'life' | 'about' | 'friends' | 'tags';
 }) {
   const classes = useStyles();
 
@@ -100,6 +101,12 @@ export default function Layout({
             <HomeOutlined />
           </ListItemIcon>
           <ListItemText primary="主页" />
+        </ListItem>
+        <ListItem button selected={select === 'about'}>
+          <ListItemIcon>
+            <AccountCircleOutlined />
+          </ListItemIcon>
+          <ListItemText primary="介绍" />
         </ListItem>
         <ListItem
           button
@@ -138,13 +145,13 @@ export default function Layout({
             </ListItemIcon>
             <ListItemText primary="游戏" />
           </ListItem>
+          <ListItem button className={classes.nestedList} selected={select === 'life'}>
+            <ListItemIcon>
+              <NaturePeopleOutlined />
+            </ListItemIcon>
+            <ListItemText primary="生活" />
+          </ListItem>
         </Collapse>
-        <ListItem button selected={select === 'about'}>
-          <ListItemIcon>
-            <AccountCircleOutlined />
-          </ListItemIcon>
-          <ListItemText primary="介绍" />
-        </ListItem>
         <ListItem button selected={select === 'talk'}>
           <ListItemIcon>
             <QuestionAnswerOutlined />

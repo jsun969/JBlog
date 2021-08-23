@@ -160,6 +160,7 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
                 <MenuItem value="study">学习</MenuItem>
                 <MenuItem value="website">建站</MenuItem>
                 <MenuItem value="game">游戏</MenuItem>
+                <MenuItem value="life">生活</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={12}>
