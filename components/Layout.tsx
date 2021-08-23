@@ -276,12 +276,7 @@ export default function Layout({
           </Typography>
           <Typography variant="body2" color="textSecondary" align="center">
             Powered by{' '}
-            <Link
-              color="inherit"
-              onClick={() => {
-                window.open('https://github.com/jsun969/JBlog');
-              }}
-            >
+            <Link color="inherit" href="https://github.com/jsun969/JBlog">
               JBlog
             </Link>
           </Typography>
