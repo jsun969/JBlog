@@ -20,8 +20,10 @@ export const createArticle = {
         content: string;
         image: string;
         tags: string[];
-      }
+      },
+      { isAdmin }: { isAdmin: boolean }
     ) {
+      if (!isAdmin) return null;
       const result = await prisma.article.create({
         data: {
           title,
