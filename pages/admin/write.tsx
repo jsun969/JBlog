@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Layout from '../../components/admin/Layout';
-import { Grid, TextField, MenuItem, Button, Typography } from '@material-ui/core';
+import { Grid, TextField, MenuItem, Button, Typography, Paper } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { GetServerSideProps } from 'next';
 import prisma from '../../lib/prisma';
 import apolloClient from '../../lib/apolloClient';
 import { gql } from '@apollo/client';
+import Markdown from '../../components/Markdown';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const tagsExist = await prisma.tag.findMany({
@@ -187,6 +188,13 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
               >
                 发布
               </Button>
+            </Grid>
+            <Grid item xs={12}>
+              {content && (
+                <Paper variant="outlined" style={{ paddingLeft: 16, paddingRight: 16 }}>
+                  <Markdown>{content}</Markdown>
+                </Paper>
+              )}
             </Grid>
           </Grid>
         )}
