@@ -14,7 +14,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { ExitToApp, Menu } from '@material-ui/icons';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import apolloClient from '../../lib/apolloClient';
 import { gql, useQuery } from '@apollo/client';
 import LogoutDialog from './LogoutDialog';
@@ -22,7 +22,7 @@ import LoginForm from './LoginForm';
 import Link from 'next/link';
 
 const drawerWidth = 100;
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingLeft: theme.spacing(4),
   },
   main: {
+    marginTop: theme.spacing(10),
     [theme.breakpoints.up('sm')]: {
       marginLeft: drawerWidth,
     },
@@ -153,7 +154,7 @@ export default function Layout({
   return (
     <>
       <header>
-        <AppBar position="sticky" className={classes.appBar}>
+        <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             {isLogin && (
               <Hidden smUp implementation="css">
@@ -215,7 +216,7 @@ export default function Layout({
         {isLogin ? (
           <Box m={3}>{children}</Box>
         ) : (
-          <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
+          <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
             {loading ? (
               <Typography>加载中...</Typography>
             ) : error ? (

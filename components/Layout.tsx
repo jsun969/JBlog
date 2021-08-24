@@ -36,12 +36,12 @@ import {
   LocalOfferOutlined,
   NaturePeopleOutlined,
 } from '@material-ui/icons';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 
 const drawerWidth = 170;
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   content: {
+    marginTop: theme.spacing(10),
     margin: theme.spacing(3),
   },
   footer: {
@@ -219,7 +220,7 @@ export default function Layout({
   return (
     <>
       <header>
-        <AppBar position="sticky" className={classes.appBar}>
+        <AppBar className={classes.appBar} position="fixed">
           <Toolbar>
             <Hidden smUp implementation="css">
               <IconButton
