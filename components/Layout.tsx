@@ -267,9 +267,9 @@ export default function Layout({
       </header>
 
       <main className={classes.main}>
-        <Typography paragraph className={classes.content}>
+        <div className={classes.content}>
           {children}
-        </Typography>
+        </div>
         <Divider />
         <footer className={classes.footer}>
           <Typography variant="body2" color="textSecondary" align="center">
