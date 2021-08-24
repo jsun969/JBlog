@@ -8,7 +8,6 @@ export const article = gql`
     link: String
     archive: String
     content: String
-    image: String
     tags: [String]
   }
 `;

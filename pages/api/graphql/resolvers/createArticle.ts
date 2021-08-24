@@ -10,7 +10,6 @@ export const createArticle = {
         link,
         archive,
         content,
-        image,
         tags,
       }: {
         title: string;
@@ -18,7 +17,6 @@ export const createArticle = {
         link: string;
         archive: string;
         content: string;
-        image: string;
         tags: string[];
       },
       { isAdmin }: { isAdmin: boolean }
@@ -31,7 +29,6 @@ export const createArticle = {
           link,
           archive,
           content,
-          image,
           tags: {
             connectOrCreate: tags.map((tag) => ({ where: { name: tag }, create: { name: tag } })),
           },

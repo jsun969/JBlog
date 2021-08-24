@@ -19,7 +19,6 @@ model Article {
   link      String   @unique
   archive   String
   content   String
-  image     String
   tags      Tag[]
 }
 

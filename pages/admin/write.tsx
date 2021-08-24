@@ -33,7 +33,6 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
   const [link, setLink] = useState<string>('');
   const [archive, setArchive] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [image, setImage] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
 
   const [postStatus, togglePostStatus] = useState<boolean>(false);
@@ -49,18 +48,9 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
             $link: String!
             $archive: String!
             $content: String!
-            $image: String
             $tags: [String]
           ) {
-            createArticle(
-              title: $title
-              summary: $summary
-              link: $link
-              archive: $archive
-              content: $content
-              image: $image
-              tags: $tags
-            ) {
+            createArticle(title: $title, summary: $summary, link: $link, archive: $archive, content: $content, tags: $tags) {
               id
             }
           }
@@ -71,7 +61,6 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
           link,
           archive,
           content,
-          image,
           tags,
         },
       });
@@ -173,17 +162,6 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
                 value={content}
                 onChange={(event) => {
                   setContent(event.target.value);
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="头图"
-                variant="outlined"
-                value={image}
-                onChange={(event) => {
-                  setImage(event.target.value);
                 }}
               />
             </Grid>
