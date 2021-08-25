@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 
 export const getStaticProps: GetStaticProps = async () => {
   const articles = await prisma.article.findMany({
+    orderBy: { createdAt: 'desc' },
     select: {
       id: true,
       link: true,
