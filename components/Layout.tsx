@@ -82,14 +82,14 @@ export default function Layout({
 }: {
   children: ReactNode;
   title: string;
-  select: 'index' | 'code' | 'study' | 'talk' | 'website' | 'game' | 'life' | 'about' | 'friends' | 'tags';
+  select?: 'index' | 'code' | 'study' | 'talk' | 'website' | 'game' | 'life' | 'about' | 'friends' | 'tags';
 }) {
   const classes = useStyles();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [isDrawerOpen, toggleIsDrawerOpen] = useState<boolean>(false);
-  const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'website', 'game'].includes(select));
+  const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'website', 'game'].includes(select || ''));
 
   const drawerContent = (
     <div className={classes.drawerContent}>
@@ -267,9 +267,7 @@ export default function Layout({
       </header>
 
       <main className={classes.main}>
-        <div className={classes.content}>
-          {children}
-        </div>
+        <div className={classes.content}>{children}</div>
         <Divider />
         <footer className={classes.footer}>
           <Typography variant="body2" color="textSecondary" align="center">
