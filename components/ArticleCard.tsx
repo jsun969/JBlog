@@ -1,20 +1,23 @@
 import { Card, CardHeader, CardContent, CardActions, Typography, Chip, Button } from '@material-ui/core';
-import { VisibilityOutlined, AccessTimeOutlined, InsertCommentOutlined } from '@material-ui/icons';
+import { VisibilityOutlined, AccessTimeOutlined, ThumbUpOutlined } from '@material-ui/icons';
+import Link from 'next/link';
 
 export default function ArticleCard({
   title,
   summary,
   time,
   watch,
-  commentsCount,
+  likes,
   tags,
+  link,
 }: {
   title: string;
   summary: string;
   time: string;
   watch: number;
-  commentsCount: number;
+  likes: number;
   tags: string[];
+  link: string;
 }) {
   return (
     <Card>
@@ -39,9 +42,11 @@ export default function ArticleCard({
             size="small"
             style={{ marginLeft: 8, marginRight: 8 }}
           />
-          <Chip variant="outlined" icon={<InsertCommentOutlined />} label={commentsCount} size="small" />
+          <Chip variant="outlined" icon={<ThumbUpOutlined />} label={likes} size="small" />
         </div>
-        <Button color="secondary">去围观</Button>
+        <Link href={`/article/${link}`} passHref>
+          <Button color="secondary">去围观</Button>
+        </Link>
       </CardActions>
     </Card>
   );

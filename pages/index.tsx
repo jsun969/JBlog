@@ -61,7 +61,8 @@ export default function Home({
                 tags={article.tags}
                 watch={3}
                 time={dayjs(article.createdAt).format('YYYY-MM-DD')}
-                commentsCount={200}
+                likes={10}
+                link={article.link}
               />
             </Grid>
           ))}
