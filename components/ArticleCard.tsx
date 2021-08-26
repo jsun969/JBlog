@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardContent, CardActions, Typography, Chip, Button } from '@material-ui/core';
-import { VisibilityOutlined, AccessTimeOutlined, ThumbUpOutlined } from '@material-ui/icons';
+import { VisibilityOutlined, EventOutlined, ThumbUpOutlined } from '@material-ui/icons';
 import Link from 'next/link';
 
 export default function ArticleCard({
@@ -35,13 +35,7 @@ export default function ArticleCard({
       <CardActions>
         <div style={{ flexGrow: 1 }}>
           <Chip variant="outlined" icon={<VisibilityOutlined />} label={watch} size="small" />
-          <Chip
-            variant="outlined"
-            icon={<AccessTimeOutlined />}
-            label={time}
-            size="small"
-            style={{ marginLeft: 8, marginRight: 8 }}
-          />
+          <Chip variant="outlined" icon={<EventOutlined />} label={time} size="small" style={{ marginInline: 8 }} />
           <Chip variant="outlined" icon={<ThumbUpOutlined />} label={likes} size="small" />
         </div>
         <Link href={`/article/${link}`} passHref>
