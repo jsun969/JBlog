@@ -9,5 +9,7 @@ export const article = gql`
     archive: String
     content: String
     tags: [String]
+    watch: Int
+    likes: Int
   }
 `;

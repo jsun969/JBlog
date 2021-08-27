@@ -20,6 +20,8 @@ model Article {
   archive   String
   content   String
   tags      Tag[]
+  watch     Int      @default(0)
+  likes     Int      @default(0)
 }
 
 model Tag {
