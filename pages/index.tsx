@@ -16,17 +16,15 @@ export const getStaticProps: GetStaticProps = async () => {
       summary: true,
       createdAt: true,
       tags: true,
+      watch: true,
+      likes: true,
     },
   });
   return {
     props: {
-      articles: articles.map(({ id, link, title, summary, createdAt, tags }) => ({
-        id,
-        link,
-        title,
-        summary,
-        createdAt,
+      articles: articles.map(({ tags, ...info }) => ({
         tags: tags.map(({ name }) => name),
+        ...info,
       })),
     },
   };
@@ -42,6 +40,8 @@ export default function Home({
     summary: string;
     createdAt: string;
     tags: string[];
+    watch: number;
+    likes: number;
   }[];
 }) {
   return (
@@ -59,9 +59,9 @@ export default function Home({
                 title={article.title}
                 summary={article.summary}
                 tags={article.tags}
-                watch={3}
+                watch={article.watch}
                 time={dayjs(article.createdAt).format('YYYY-MM-DD')}
-                likes={10}
+                likes={article.likes}
                 link={article.link}
               />
             </Grid>

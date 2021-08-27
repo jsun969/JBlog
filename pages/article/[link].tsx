@@ -32,6 +32,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       createdAt: true,
       tags: true,
       updateAt: true,
+      watch: true,
+      likes: true,
     },
   });
   return { props: { article: { ...article, tags: article?.tags.map(({ name }) => name) } } };
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Article({
+export default function ArticlePage({
   article,
 }: {
   article: {
@@ -55,6 +57,8 @@ export default function Article({
     createdAt: Date;
     updateAt: Date;
     tags: string[];
+    watch: number;
+    likes: number;
   };
 }) {
   const classes = useStyles();
@@ -63,7 +67,7 @@ export default function Article({
 
   const subtitleChips = (
     <>
-      <Chip variant="outlined" icon={<VisibilityOutlined />} label="20" size="small" />
+      <Chip variant="outlined" icon={<VisibilityOutlined />} label={article.watch} size="small" />
       <Chip
         variant="outlined"
         icon={<List />}
@@ -74,7 +78,7 @@ export default function Article({
       <Chip
         variant="outlined"
         icon={<EventOutlined />}
-        label={dayjs(article.createdAt).format('YYYY-MM-DD hh:mm:ss')}
+        label={dayjs(article.createdAt).format('YYYY-MM-DD HH:mm:ss')}
         size="small"
       />
     </>
@@ -93,7 +97,7 @@ export default function Article({
             toggleIsLike(!isLike);
           }}
         >
-          {99 + +isLike}
+          {article.likes + +isLike}
         </Button>
       </Box>
       <Box my={2}>
@@ -101,7 +105,7 @@ export default function Article({
           <Chip key={index} label={tag} style={{ marginRight: 8 }} />
         ))}
       </Box>
-      <Box textAlign="end">编辑于:{dayjs(article.updateAt).format('YYYY-MM-DD hh:mm:ss')}</Box>
+      <Box textAlign="end">编辑于: {dayjs(article.updateAt).format('YYYY-MM-DD HH:mm:ss')}</Box>
     </>
   );
 
