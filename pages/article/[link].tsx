@@ -5,7 +5,7 @@ import { Button, Container, makeStyles, Paper, Typography, Box, Chip, Hidden } f
 import { ThumbUp, ThumbUpOutlined, VisibilityOutlined, List, EventOutlined } from '@material-ui/icons';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import prisma from '../../lib/prisma';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import apolloClient from '../../lib/apolloClient';
 import { gql } from '@apollo/client';
@@ -21,6 +21,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: articleLink.map(({ link }) => ({ params: { link } })),
     fallback: false,
   };
+};
+
+const getLocalIsLike = (link: string): boolean => {
+  if (typeof window !== 'undefined') {
+    return (JSON.parse(localStorage.getItem('likedArticles') || '[]') as string[]).includes(link);
+  } else {
+    return false;
+  }
+};
+
+const setLocalIsLike = (link: string) => {
+  if (typeof window !== 'undefined') {
+    const likedArticlesArray = JSON.parse(localStorage.getItem('likedArticles') || '[]') as string[];
+    likedArticlesArray.push(link);
+    localStorage.setItem('likedArticles', JSON.stringify(likedArticlesArray));
+  }
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -71,9 +87,14 @@ export default function ArticlePage({
 
   const [isLike, toggleIsLike] = useState<boolean>(false);
 
+  useEffect(() => {
+    toggleIsLike(getLocalIsLike(link));
+  }, []);
+
   const handleLike = async () => {
     if (!isLike) {
       try {
+        toggleIsLike(true);
         await apolloClient.mutate({
           mutation: gql`
             mutation LikeArticle($link: String!) {
@@ -86,8 +107,9 @@ export default function ArticlePage({
             link,
           },
         });
-        toggleIsLike(true);
+        setLocalIsLike(link);
       } catch (error) {
+        toggleIsLike(false);
         console.error(error);
       }
     }
