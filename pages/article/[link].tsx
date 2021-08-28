@@ -23,14 +23,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+/**
+ * 获取本地已点赞文章
+ *
+ * @param {string} link 文章链接
+ * @return {*}  {boolean}
+ */
 const getLocalIsLike = (link: string): boolean => {
   if (typeof window !== 'undefined') {
     return (JSON.parse(localStorage.getItem('likedArticles') || '[]') as string[]).includes(link);
   } else {
-    return false;
+    return true;
   }
 };
 
+/**
+ * 在本地储存文章点赞状态
+ * ! (待修复)点赞后导致Server和Client数值不统一报错
+ *
+ * @param {string} link 文章链接
+ */
 const setLocalIsLike = (link: string) => {
   if (typeof window !== 'undefined') {
     const likedArticlesArray = JSON.parse(localStorage.getItem('likedArticles') || '[]') as string[];
@@ -89,7 +101,7 @@ export default function ArticlePage({
 
   useEffect(() => {
     toggleIsLike(getLocalIsLike(link));
-  }, []);
+  }, [link]);
 
   const handleLike = async () => {
     if (!isLike) {
@@ -145,7 +157,7 @@ export default function ArticlePage({
           startIcon={isLike ? <ThumbUp /> : <ThumbUpOutlined />}
           onClick={handleLike}
         >
-          {article.likes + +isLike}
+          {getLocalIsLike(link) ? article.likes : article.likes + 1}
         </Button>
       </Box>
       <Box my={2}>
