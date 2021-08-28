@@ -23,13 +23,7 @@
 初始化数据库
 
 ```
-npx prisma db push
-```
-
-初始化数据库开发环境
-
-```
-npx prisma generate
+yarn db:init
 ```
 
 启动开发服务端
