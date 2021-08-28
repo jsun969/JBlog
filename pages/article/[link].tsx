@@ -52,6 +52,10 @@ const setLocalIsLike = (link: string) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  await prisma.article.update({
+    where: { link: context.params?.link as string },
+    data: { watch: { increment: 1 } },
+  });
   const article = await prisma.article.findFirst({
     where: { link: context.params?.link as string },
     select: {
