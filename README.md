@@ -31,3 +31,9 @@ yarn db:init
 ```
 yarn dev
 ```
+
+数据库管理
+
+```
+yarn db:manage
+```
