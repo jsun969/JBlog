@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:init": "prisma db push && prisma generate"
   },
   "dependencies": {
     "@apollo/client": "^3.4.8",
