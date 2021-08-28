@@ -113,7 +113,7 @@ export default function Layout({
       setPassKey('');
       setLoginLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setPassKey('');
       setLoginLoading(false);
     }
