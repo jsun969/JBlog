@@ -7,6 +7,8 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import prisma from '../../lib/prisma';
 import { useState } from 'react';
 import dayjs from 'dayjs';
+import apolloClient from '../../lib/apolloClient';
+import { gql } from '@apollo/client';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const articleLink = await prisma.article.findMany({
@@ -36,7 +38,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
       likes: true,
     },
   });
-  return { props: { article: { ...article, tags: article?.tags.map(({ name }) => name) } } };
+  return {
+    props: { article: { ...article, tags: article?.tags.map(({ name }) => name) }, link: context.params?.link },
+  };
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ArticlePage({
   article,
+  link,
 }: {
   article: {
     title: string;
@@ -60,10 +65,33 @@ export default function ArticlePage({
     watch: number;
     likes: number;
   };
+  link: string;
 }) {
   const classes = useStyles();
 
   const [isLike, toggleIsLike] = useState<boolean>(false);
+
+  const handleLike = async () => {
+    if (!isLike) {
+      try {
+        await apolloClient.mutate({
+          mutation: gql`
+            mutation LikeArticle($link: String!) {
+              likeArticle(link: $link) {
+                id
+              }
+            }
+          `,
+          variables: {
+            link,
+          },
+        });
+        toggleIsLike(true);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   const subtitleChips = (
     <>
@@ -93,9 +121,7 @@ export default function ArticlePage({
           color="secondary"
           size="large"
           startIcon={isLike ? <ThumbUp /> : <ThumbUpOutlined />}
-          onClick={() => {
-            toggleIsLike(!isLike);
-          }}
+          onClick={handleLike}
         >
           {article.likes + +isLike}
         </Button>
