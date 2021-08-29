@@ -1,3 +1,12 @@
 {
-  "extends": ["next", "next/core-web-vitals"]
+  "extends": ["next", "next/core-web-vitals"],
+  "rules": {
+    "sort-imports": ["error"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "semi": ["error", "always"],
+    "no-var": "error",
+    "arrow-parens": ["error", "always"],
+    "eqeqeq": ["error", "always"]
+  }
 }
