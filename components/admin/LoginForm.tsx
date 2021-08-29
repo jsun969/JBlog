@@ -1,5 +1,5 @@
-import { Paper, Grid, TextField, Button } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Button, Grid, Paper, TextField } from '@material-ui/core';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   loginPaper: {

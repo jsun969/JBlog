@@ -1,11 +1,11 @@
 import { ApolloServer } from 'apollo-server-micro';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
-import { typeDefs } from './graphql/schemas';
-import { resolvers } from './graphql/resolvers';
-import { PageConfig } from 'next';
 import { MicroRequest } from 'apollo-server-micro/dist/types';
+import { PageConfig } from 'next';
 import { ServerResponse } from 'http';
 import jwt from 'jsonwebtoken';
+import { resolvers } from './graphql/resolvers';
+import { typeDefs } from './graphql/schemas';
 
 export const config: PageConfig = {
   api: {

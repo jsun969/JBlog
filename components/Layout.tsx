@@ -1,44 +1,44 @@
-import { ReactNode, useState } from 'react';
+import {
+  AccountCircleOutlined,
+  ApartmentOutlined,
+  ArchiveOutlined,
+  AssignmentOutlined,
+  BookOutlined,
+  CodeOutlined,
+  ExpandLess,
+  ExpandMore,
+  HomeOutlined,
+  LanguageOutlined,
+  LocalOfferOutlined,
+  Menu,
+  NaturePeopleOutlined,
+  PeopleAltOutlined,
+  QuestionAnswerOutlined,
+  Search,
+  TrainOutlined,
+  VideogameAssetOutlined,
+} from '@material-ui/icons';
 import {
   AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
+  Box,
+  Collapse,
+  Divider,
   Drawer,
-  SwipeableDrawer,
+  Hidden,
+  IconButton,
+  Link,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Collapse,
-  Divider,
-  Link,
-  Hidden,
-  Box,
+  SwipeableDrawer,
+  Toolbar,
+  Typography,
 } from '@material-ui/core';
-import {
-  Menu,
-  Search,
-  HomeOutlined,
-  ArchiveOutlined,
-  AccountCircleOutlined,
-  PeopleAltOutlined,
-  ApartmentOutlined,
-  AssignmentOutlined,
-  TrainOutlined,
-  ExpandLess,
-  ExpandMore,
-  CodeOutlined,
-  BookOutlined,
-  LanguageOutlined,
-  VideogameAssetOutlined,
-  QuestionAnswerOutlined,
-  LocalOfferOutlined,
-  NaturePeopleOutlined,
-} from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
-import dayjs from 'dayjs';
+import { ReactNode, useState } from 'react';
 import Image from 'next/image';
+import dayjs from 'dayjs';
+import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 170;
 const useStyles = makeStyles((theme) => ({

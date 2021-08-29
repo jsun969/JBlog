@@ -1,14 +1,14 @@
+import { Box, Button, Chip, Container, Hidden, Paper, Typography, makeStyles } from '@material-ui/core';
+import { EventOutlined, List, ThumbUp, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
 import Markdown from '../../components/Markdown';
-import { Button, Container, makeStyles, Paper, Typography, Box, Chip, Hidden } from '@material-ui/core';
-import { ThumbUp, ThumbUpOutlined, VisibilityOutlined, List, EventOutlined } from '@material-ui/icons';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import prisma from '../../lib/prisma';
-import { useState, useEffect } from 'react';
-import dayjs from 'dayjs';
 import apolloClient from '../../lib/apolloClient';
+import dayjs from 'dayjs';
 import { gql } from '@apollo/client';
+import prisma from '../../lib/prisma';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const articleLink = await prisma.article.findMany({

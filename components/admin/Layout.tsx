@@ -1,25 +1,25 @@
-import { ReactNode, useState, useEffect } from 'react';
 import {
   AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
+  Box,
   Drawer,
-  SwipeableDrawer,
+  Grid,
+  Hidden,
+  IconButton,
   List,
   ListItem,
   ListItemText,
-  Hidden,
-  Grid,
-  Box,
+  SwipeableDrawer,
+  Toolbar,
+  Typography,
 } from '@material-ui/core';
 import { ExitToApp, Menu } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
-import apolloClient from '../../lib/apolloClient';
+import { ReactNode, useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import LogoutDialog from './LogoutDialog';
-import LoginForm from './LoginForm';
 import Link from 'next/link';
+import LoginForm from './LoginForm';
+import LogoutDialog from './LogoutDialog';
+import apolloClient from '../../lib/apolloClient';
+import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 100;
 const useStyles = makeStyles((theme) => ({

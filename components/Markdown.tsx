@@ -1,8 +1,8 @@
-import marked from 'marked';
-import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
-import ReactDOMServer from 'react-dom/server';
 import Code from './markdown/Code';
+import ReactDOMServer from 'react-dom/server';
+import hljs from 'highlight.js';
+import marked from 'marked';
 
 const renderer: Partial<marked.Renderer> = {
   code(code, lang) {

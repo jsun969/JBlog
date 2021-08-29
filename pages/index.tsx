@@ -1,10 +1,10 @@
-import { GetStaticProps } from 'next';
-import Head from 'next/head';
-import { Grid } from '@material-ui/core';
 import ArticleCard from '../components/ArticleCard';
+import { GetStaticProps } from 'next';
+import { Grid } from '@material-ui/core';
+import Head from 'next/head';
 import Layout from '../components/Layout';
-import prisma from '../lib/prisma';
 import dayjs from 'dayjs';
+import prisma from '../lib/prisma';
 
 export const getStaticProps: GetStaticProps = async () => {
   const articles = await prisma.article.findMany({
