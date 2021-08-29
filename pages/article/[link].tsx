@@ -24,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 /**
- * 获取本地已点赞文章
+ * 判断当前文章是否点赞过
  *
  * @param {string} link 文章链接
  * @return {*}  {boolean}
