@@ -82,7 +82,7 @@ export default function Layout({
 }: {
   children: ReactNode;
   title: string;
-  select?: 'index' | 'code' | 'study' | 'talk' | 'website' | 'game' | 'life' | 'about' | 'friends' | 'tags';
+  select?: 'index' | 'code' | 'study' | 'website' | 'game' | 'life' | 'about' | 'friends' | 'tags';
 }) {
   const classes = useStyles();
 
@@ -153,12 +153,6 @@ export default function Layout({
             <ListItemText primary="生活" />
           </ListItem>
         </Collapse>
-        <ListItem button selected={select === 'talk'}>
-          <ListItemIcon>
-            <QuestionAnswerOutlined />
-          </ListItemIcon>
-          <ListItemText primary="说说" />
-        </ListItem>
         <ListItem button selected={select === 'friends'}>
           <ListItemIcon>
             <PeopleAltOutlined />

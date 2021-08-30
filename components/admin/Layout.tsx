@@ -67,7 +67,7 @@ export default function Layout({
   select = 'write',
 }: {
   children: ReactNode;
-  select: 'write' | 'list' | 'friends' | 'about' | 'comment' | 'index';
+  select: 'write' | 'list' | 'friends' | 'about' | 'index';
 }) {
   const classes = useStyles();
 
@@ -138,14 +138,11 @@ export default function Layout({
             <ListItemText primary="撰写文章" />
           </ListItem>
         </Link>
-        <ListItem button selected={select === 'comment'}>
-          <ListItemText primary="评论管理" />
-        </ListItem>
         <ListItem button selected={select === 'friends'}>
           <ListItemText primary="友链管理" />
         </ListItem>
         <ListItem button selected={select === 'about'}>
-          <ListItemText primary="修改关于" />
+          <ListItemText primary="修改介绍" />
         </ListItem>
       </List>
     </div>
