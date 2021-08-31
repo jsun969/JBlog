@@ -34,6 +34,7 @@ export const createArticle = {
           },
         },
       });
+
       return { ...result, tags };
     },
   },

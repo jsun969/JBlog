@@ -6,9 +6,7 @@ export const likeArticle = {
       return await prisma.article.update({
         where: { link: link },
         data: {
-          likes: {
-            increment: 1,
-          },
+          likes: { increment: 1 },
         },
       });
     },
