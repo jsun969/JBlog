@@ -49,7 +49,7 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
             $link: String!
             $archive: String!
             $content: String!
-            $tags: [String]
+            $tags: [String]!
           ) {
             createArticle(title: $title, summary: $summary, link: $link, archive: $archive, content: $content, tags: $tags) {
               id
@@ -183,7 +183,7 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
                 variant="contained"
                 color="primary"
                 size="large"
-                disabled={!(title && summary && link && archive && content && !linksExist.includes(link))}
+                disabled={!(title && summary && link && archive && content && !linksExist.includes(link) && tags.length)}
                 onClick={handlePost}
               >
                 发布
