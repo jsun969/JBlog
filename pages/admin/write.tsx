@@ -1,7 +1,6 @@
 import { Button, Grid, MenuItem, Paper, TextField, Typography } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import Layout from '../../components/admin/Layout';
 import Markdown from '../../components/Markdown';
 import apolloClient from '../../lib/apolloClient';
@@ -76,10 +75,6 @@ export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; 
 
   return (
     <>
-      <Head>
-        <title>荆棘小栈 - 后台</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Layout select="write">
         {postStatus ? (
           <Grid

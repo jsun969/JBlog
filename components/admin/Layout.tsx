@@ -15,6 +15,7 @@ import {
 import { ExitToApp, Menu } from '@material-ui/icons';
 import { ReactNode, useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
+import Head from 'next/head';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
 import LogoutDialog from './LogoutDialog';
@@ -64,10 +65,10 @@ const GET_ADMIN_BY_TOKEN = gql`
 
 export default function Layout({
   children,
-  select = 'write',
+  select,
 }: {
   children: ReactNode;
-  select: 'write' | 'list' | 'friends' | 'about' | 'index';
+  select: 'write' | 'manage' | 'friends' | 'about' | 'index';
 }) {
   const classes = useStyles();
 
@@ -130,7 +131,7 @@ export default function Layout({
             <ListItemText primary="后台首页" />
           </ListItem>
         </Link>
-        <ListItem button selected={select === 'list'}>
+        <ListItem button selected={select === 'manage'}>
           <ListItemText primary="文章管理" />
         </ListItem>
         <Link href="/admin/write" passHref>
@@ -150,6 +151,10 @@ export default function Layout({
 
   return (
     <>
+      <Head>
+        <title>荆棘小栈 - 后台</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <header>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>

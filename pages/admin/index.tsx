@@ -1,5 +1,4 @@
 import { Grid, Typography } from '@material-ui/core';
-import Head from 'next/head';
 import Layout from '../../components/admin/Layout';
 import React from 'react';
 import dayjs from 'dayjs';
@@ -22,10 +21,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>荆棘小栈 - 后台</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Layout select="index">
         <Grid
           container
