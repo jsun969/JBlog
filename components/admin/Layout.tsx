@@ -131,9 +131,11 @@ export default function Layout({
             <ListItemText primary="后台首页" />
           </ListItem>
         </Link>
-        <ListItem button selected={select === 'manage'}>
-          <ListItemText primary="文章管理" />
-        </ListItem>
+        <Link href="/admin/manage" passHref>
+          <ListItem button selected={select === 'manage'}>
+            <ListItemText primary="文章管理" />
+          </ListItem>
+        </Link>
         <Link href="/admin/write" passHref>
           <ListItem button selected={select === 'write'}>
             <ListItemText primary="撰写文章" />
