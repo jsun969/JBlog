@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Write({ tagsExist, linksExist }: { tagsExist: string[]; linksExist: string[] }) {
+export default function WritePage({ tagsExist, linksExist }: { tagsExist: string[]; linksExist: string[] }) {
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
   const [link, setLink] = useState<string>('');

@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default function Home({
+export default function HomePage({
   articles,
 }: {
   articles: {
