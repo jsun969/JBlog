@@ -13,7 +13,6 @@ import {
   Menu,
   NaturePeopleOutlined,
   PeopleAltOutlined,
-  QuestionAnswerOutlined,
   Search,
   TrainOutlined,
   VideogameAssetOutlined,
