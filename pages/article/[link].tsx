@@ -130,7 +130,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
     }
   };
 
-  const subtitleChips = (
+  const SubtitleChips: React.FC = () => (
     <>
       <Chip variant="outlined" icon={<VisibilityOutlined />} label={article.watch} size="small" />
       <Chip
@@ -182,7 +182,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
       <Layout title={`${article.title} - 荆棘小栈`}>
         <Hidden smUp implementation="css">
           <Box textAlign="center" mt={2}>
-            {subtitleChips}
+            <SubtitleChips />
           </Box>
           {main}
         </Hidden>
@@ -193,7 +193,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
                 {article.title}
               </Typography>
               <Box textAlign="end" mt={2}>
-                {subtitleChips}
+                <SubtitleChips />
               </Box>
               {main}
             </Paper>

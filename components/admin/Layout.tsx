@@ -119,7 +119,7 @@ const Layout: React.FC<LayoutProps> = ({ children, select }) => {
     }
   };
 
-  const drawerContent = (
+  const DrawerContent: React.FC = () => (
     <div className={classes.drawerContent}>
       <Hidden xsDown implementation="css">
         <div className={classes.toolbar} />
@@ -203,12 +203,12 @@ const Layout: React.FC<LayoutProps> = ({ children, select }) => {
                 disableBackdropTransition={!iOS}
                 disableDiscovery={iOS}
               >
-                {drawerContent}
+                <DrawerContent />
               </SwipeableDrawer>
             </Hidden>
             <Hidden xsDown implementation="css">
               <Drawer open variant="permanent" className={classes.drawer}>
-                {drawerContent}
+                <DrawerContent />
               </Drawer>
             </Hidden>
           </nav>

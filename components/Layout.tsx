@@ -87,127 +87,129 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [isDrawerOpen, toggleIsDrawerOpen] = useState<boolean>(false);
-  const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'website', 'game'].includes(select || ''));
 
-  const drawerContent = (
-    <div className={classes.drawerContent}>
-      <Hidden xsDown implementation="css">
-        <div className={classes.toolbar} />
-      </Hidden>
-      <List>
-        <ListItem button selected={select === 'index'}>
-          <ListItemIcon>
-            <HomeOutlined />
-          </ListItemIcon>
-          <ListItemText primary="主页" />
-        </ListItem>
-        <ListItem button selected={select === 'about'}>
-          <ListItemIcon>
-            <AccountCircleOutlined />
-          </ListItemIcon>
-          <ListItemText primary="介绍" />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            toggleShowArchive(!showArchive);
-          }}
-        >
-          <ListItemIcon>
-            <ArchiveOutlined />
-          </ListItemIcon>
-          <ListItemText primary="归档" />
-          {showArchive ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={showArchive}>
-          <ListItem button className={classes.nestedList} selected={select === 'code'}>
+  const DrawerContent: React.FC = () => {
+    const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'website', 'game'].includes(select || ''));
+    return (
+      <div className={classes.drawerContent}>
+        <Hidden xsDown implementation="css">
+          <div className={classes.toolbar} />
+        </Hidden>
+        <List>
+          <ListItem button selected={select === 'index'}>
             <ListItemIcon>
-              <CodeOutlined />
+              <HomeOutlined />
             </ListItemIcon>
-            <ListItemText primary="编程" />
+            <ListItemText primary="主页" />
           </ListItem>
-          <ListItem button className={classes.nestedList} selected={select === 'study'}>
+          <ListItem button selected={select === 'about'}>
             <ListItemIcon>
-              <BookOutlined />
+              <AccountCircleOutlined />
             </ListItemIcon>
-            <ListItemText primary="学习" />
+            <ListItemText primary="介绍" />
           </ListItem>
-          <ListItem button className={classes.nestedList} selected={select === 'website'}>
+          <ListItem
+            button
+            onClick={() => {
+              toggleShowArchive(!showArchive);
+            }}
+          >
             <ListItemIcon>
-              <LanguageOutlined />
+              <ArchiveOutlined />
             </ListItemIcon>
-            <ListItemText primary="建站" />
+            <ListItemText primary="归档" />
+            {showArchive ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <ListItem button className={classes.nestedList} selected={select === 'game'}>
+          <Collapse in={showArchive}>
+            <ListItem button className={classes.nestedList} selected={select === 'code'}>
+              <ListItemIcon>
+                <CodeOutlined />
+              </ListItemIcon>
+              <ListItemText primary="编程" />
+            </ListItem>
+            <ListItem button className={classes.nestedList} selected={select === 'study'}>
+              <ListItemIcon>
+                <BookOutlined />
+              </ListItemIcon>
+              <ListItemText primary="学习" />
+            </ListItem>
+            <ListItem button className={classes.nestedList} selected={select === 'website'}>
+              <ListItemIcon>
+                <LanguageOutlined />
+              </ListItemIcon>
+              <ListItemText primary="建站" />
+            </ListItem>
+            <ListItem button className={classes.nestedList} selected={select === 'game'}>
+              <ListItemIcon>
+                <VideogameAssetOutlined />
+              </ListItemIcon>
+              <ListItemText primary="游戏" />
+            </ListItem>
+            <ListItem button className={classes.nestedList} selected={select === 'life'}>
+              <ListItemIcon>
+                <NaturePeopleOutlined />
+              </ListItemIcon>
+              <ListItemText primary="生活" />
+            </ListItem>
+          </Collapse>
+          <ListItem button selected={select === 'friends'}>
             <ListItemIcon>
-              <VideogameAssetOutlined />
+              <PeopleAltOutlined />
             </ListItemIcon>
-            <ListItemText primary="游戏" />
+            <ListItemText primary="友链" />
           </ListItem>
-          <ListItem button className={classes.nestedList} selected={select === 'life'}>
+          <ListItem button selected={select === 'tags'}>
             <ListItemIcon>
-              <NaturePeopleOutlined />
+              <LocalOfferOutlined />
             </ListItemIcon>
-            <ListItemText primary="生活" />
+            <ListItemText primary="标签" />
           </ListItem>
-        </Collapse>
-        <ListItem button selected={select === 'friends'}>
-          <ListItemIcon>
-            <PeopleAltOutlined />
-          </ListItemIcon>
-          <ListItemText primary="友链" />
-        </ListItem>
-        <ListItem button selected={select === 'tags'}>
-          <ListItemIcon>
-            <LocalOfferOutlined />
-          </ListItemIcon>
-          <ListItemText primary="标签" />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            window.open('https://jsun969.github.io');
-          }}
-        >
-          <ListItemIcon>
-            <ApartmentOutlined />
-          </ListItemIcon>
-          <ListItemText primary="小屋" />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            window.open('https://msg.jsun.limecho.net');
-          }}
-        >
-          <ListItemIcon>
-            <AssignmentOutlined />
-          </ListItemIcon>
-          <ListItemText primary="留言" />
-        </ListItem>
-        <ListItem
-          onClick={() => {
-            window.open('https://travellings.link');
-          }}
-          button
-        >
-          <ListItemIcon>
-            <TrainOutlined />
-          </ListItemIcon>
-          <ListItemText primary="开往" />
-        </ListItem>
-      </List>
-      <Divider />
-      <Box m={2} style={{ display: 'block' }}>
-        <Typography variant="caption" color="textSecondary">
-          赞助商
-        </Typography>
-        <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="noreferrer">
-          <Image src="/upyun.png" alt="upyun" width="128" height="66" />
-        </a>
-      </Box>
-    </div>
-  );
+          <ListItem
+            button
+            onClick={() => {
+              window.open('https://jsun969.github.io');
+            }}
+          >
+            <ListItemIcon>
+              <ApartmentOutlined />
+            </ListItemIcon>
+            <ListItemText primary="小屋" />
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => {
+              window.open('https://msg.jsun.limecho.net');
+            }}
+          >
+            <ListItemIcon>
+              <AssignmentOutlined />
+            </ListItemIcon>
+            <ListItemText primary="留言" />
+          </ListItem>
+          <ListItem
+            onClick={() => {
+              window.open('https://travellings.link');
+            }}
+            button
+          >
+            <ListItemIcon>
+              <TrainOutlined />
+            </ListItemIcon>
+            <ListItemText primary="开往" />
+          </ListItem>
+        </List>
+        <Divider />
+        <Box m={2} style={{ display: 'block' }}>
+          <Typography variant="caption" color="textSecondary">
+            赞助商
+          </Typography>
+          <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="noreferrer">
+            <Image src="/upyun.png" alt="upyun" width="128" height="66" />
+          </a>
+        </Box>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -247,12 +249,12 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
               disableBackdropTransition={!iOS}
               disableDiscovery={iOS}
             >
-              {drawerContent}
+              <DrawerContent />
             </SwipeableDrawer>
           </Hidden>
           <Hidden xsDown implementation="css">
             <Drawer open variant="permanent" className={classes.drawer}>
-              {drawerContent}
+              <DrawerContent />
             </Drawer>
           </Hidden>
         </nav>
