@@ -27,7 +27,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function WritePage({ tagsExist, linksExist }: { tagsExist: string[]; linksExist: string[] }) {
+interface WritePageProps {
+  tagsExist: string[];
+  linksExist: string[];
+}
+
+const WritePage: React.FC<WritePageProps> = ({ tagsExist, linksExist }) => {
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
   const [link, setLink] = useState<string>('');
@@ -135,7 +140,7 @@ export default function WritePage({ tagsExist, linksExist }: { tagsExist: string
                 label="归档"
                 value={archive}
                 onChange={(event) => {
-                  setArchive(event.target.value as string);
+                  setArchive(event.target.value);
                 }}
                 select
                 variant="outlined"
@@ -196,4 +201,6 @@ export default function WritePage({ tagsExist, linksExist }: { tagsExist: string
       </Layout>
     </>
   );
-}
+};
+
+export default WritePage;

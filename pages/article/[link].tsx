@@ -82,10 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ArticlePage({
-  article,
-  link,
-}: {
+interface ArticlePageProps {
   article: {
     title: string;
     summary: string;
@@ -98,7 +95,9 @@ export default function ArticlePage({
     likes: number;
   };
   link: string;
-}) {
+}
+
+const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
   const classes = useStyles();
 
   const [isLike, toggleIsLike] = useState<boolean>(false);
@@ -203,4 +202,6 @@ export default function ArticlePage({
       </Layout>
     </>
   );
-}
+};
+
+export default ArticlePage;

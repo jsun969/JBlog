@@ -63,13 +63,12 @@ const GET_ADMIN_BY_TOKEN = gql`
   }
 `;
 
-export default function Layout({
-  children,
-  select,
-}: {
+interface LayoutProps {
   children: ReactNode;
   select: 'write' | 'manage' | 'friends' | 'about' | 'index';
-}) {
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, select }) => {
   const classes = useStyles();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -253,4 +252,6 @@ export default function Layout({
       />
     </>
   );
-}
+};
+
+export default Layout;

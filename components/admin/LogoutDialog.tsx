@@ -1,14 +1,12 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
-export default function LogoutDialog({
-  open,
-  onClose,
-  onConfirm,
-}: {
+interface LogoutDialogProps {
   open: boolean;
   onClose: () => void;
   onConfirm: () => void;
-}) {
+}
+
+const LogoutDialog: React.FC<LogoutDialogProps> = ({ open, onClose, onConfirm }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>登出后台?</DialogTitle>
@@ -25,4 +23,6 @@ export default function LogoutDialog({
       </DialogActions>
     </Dialog>
   );
-}
+};
+
+export default LogoutDialog;

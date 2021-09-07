@@ -15,14 +15,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return { props: { articles } };
 };
 
-export default function ManagePage({
-  articles,
-}: {
+interface ManagePageProps {
   articles: {
     id: number;
     title: string;
   }[];
-}) {
+}
+
+const ManagePage: React.FC<ManagePageProps> = ({ articles }) => {
   return (
     <Layout select="manage">
       <TableContainer>
@@ -52,4 +52,6 @@ export default function ManagePage({
       </TableContainer>
     </Layout>
   );
-}
+};
+
+export default ManagePage;

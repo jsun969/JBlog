@@ -30,9 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default function HomePage({
-  articles,
-}: {
+interface HomePageProps {
   articles: {
     id: number;
     link: string;
@@ -43,7 +41,9 @@ export default function HomePage({
     watch: number;
     likes: number;
   }[];
-}) {
+}
+
+const HomePage: React.FC<HomePageProps> = ({ articles }) => {
   return (
     <div>
       <Head>
@@ -70,4 +70,6 @@ export default function HomePage({
       </Layout>
     </div>
   );
-}
+};
+
+export default HomePage;

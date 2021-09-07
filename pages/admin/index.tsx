@@ -3,7 +3,7 @@ import Layout from '../../components/admin/Layout';
 import React from 'react';
 import dayjs from 'dayjs';
 
-export default function AdminHomePage() {
+const AdminHomePage: React.FC = () => {
   const greet = () => {
     const time = dayjs().hour();
     if ([0, 1, 2, 3, 4, 5].includes(time)) {
@@ -35,4 +35,6 @@ export default function AdminHomePage() {
       </Layout>
     </>
   );
-}
+};
+
+export default AdminHomePage;

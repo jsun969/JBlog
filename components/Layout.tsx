@@ -75,15 +75,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Layout({
-  children,
-  title,
-  select,
-}: {
+interface LayoutProps {
   children: ReactNode;
   title: string;
   select?: 'index' | 'code' | 'study' | 'website' | 'game' | 'life' | 'about' | 'friends' | 'tags';
-}) {
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
   const classes = useStyles();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -277,4 +275,6 @@ export default function Layout({
       </main>
     </>
   );
-}
+};
+
+export default Layout;

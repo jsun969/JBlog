@@ -15,7 +15,13 @@ const renderer: Partial<marked.Renderer> = {
 
 marked.use({ renderer });
 
-export default function Markdown({ children }: { children: string }) {
+interface MarkdownProps {
+  children: string;
+}
+
+const Markdown: React.FC<MarkdownProps> = ({ children }) => {
   const content = marked(children);
   return <article dangerouslySetInnerHTML={{ __html: content }} />;
-}
+};
+
+export default Markdown;

@@ -8,17 +8,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function LoginForm({
-  passKey,
-  onChangeKey,
-  onLogin,
-  disabled,
-}: {
+interface LoginFormProps {
   passKey: string;
   onChangeKey: (value: string) => void;
   onLogin: () => any;
   disabled: boolean;
-}) {
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ passKey, onChangeKey, onLogin, disabled }) => {
   const classes = useStyles();
 
   return (
@@ -51,4 +48,6 @@ export default function LoginForm({
       </Grid>
     </Paper>
   );
-}
+};
+
+export default LoginForm;

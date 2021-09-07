@@ -1,6 +1,11 @@
-export default function Code({ language, children }: { language: string; children: string }) {
+interface CodeProps {
+  language: string;
+  children: string;
+}
+
+const Code: React.FC<CodeProps> = ({ language, children }) => {
   return (
-    <pre style={{ borderRadius: 4, position: 'relative' }}>
+    <pre style={{ borderRadius: 4 }}>
       <code
         style={{ backgroundColor: '#f6f8fa' }}
         className={`hljs language-${language}`}
@@ -8,4 +13,6 @@ export default function Code({ language, children }: { language: string; childre
       />
     </pre>
   );
-}
+};
+
+export default Code;

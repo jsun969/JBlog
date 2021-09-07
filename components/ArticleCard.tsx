@@ -2,15 +2,7 @@ import { Button, Card, CardActions, CardContent, CardHeader, Chip, Typography } 
 import { EventOutlined, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import Link from 'next/link';
 
-export default function ArticleCard({
-  title,
-  summary,
-  time,
-  watch,
-  likes,
-  tags,
-  link,
-}: {
+interface ArticleCardProps {
   title: string;
   summary: string;
   time: string;
@@ -18,7 +10,9 @@ export default function ArticleCard({
   likes: number;
   tags: string[];
   link: string;
-}) {
+}
+
+const ArticleCard: React.FC<ArticleCardProps> = ({ title, summary, time, watch, likes, tags, link }) => {
   return (
     <Card>
       <CardHeader
@@ -44,4 +38,6 @@ export default function ArticleCard({
       </CardActions>
     </Card>
   );
-}
+};
+
+export default ArticleCard;
