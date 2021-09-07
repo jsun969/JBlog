@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "eslint --fix .",
     "db:init": "prisma db push && prisma generate",
     "db:manage": "prisma studio"
   },
