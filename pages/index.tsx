@@ -1,12 +1,12 @@
 import ArticleCard from '../components/ArticleCard';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { Grid } from '@material-ui/core';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import dayjs from 'dayjs';
 import prisma from '../lib/prisma';
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const articles = await prisma.article.findMany({
     orderBy: { createdAt: 'desc' },
     select: {

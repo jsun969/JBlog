@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Container, Hidden, Paper, Typography, makeStyles } from '@material-ui/core';
 import { EventOutlined, List, ThumbUp, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import { useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
 import Markdown from '../../components/Markdown';
@@ -9,19 +9,6 @@ import apolloClient from '../../lib/apolloClient';
 import dayjs from 'dayjs';
 import { gql } from '@apollo/client';
 import prisma from '../../lib/prisma';
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const articleLink = await prisma.article.findMany({
-    select: {
-      link: true,
-    },
-  });
-
-  return {
-    paths: articleLink.map(({ link }) => ({ params: { link } })),
-    fallback: false,
-  };
-};
 
 /**
  * 判断当前文章是否点赞过
@@ -39,7 +26,7 @@ const getLocalIsLike = (link: string): boolean => {
 
 /**
  * 在本地储存文章点赞状态
- * ! (待修复)点赞后导致Server和Client数值不统一报错
+ * ! 点赞后导致Server和Client数值不统一报错
  *
  * @param {string} link 文章链接
  */
@@ -51,28 +38,35 @@ const setLocalIsLike = (link: string) => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  await prisma.article.update({
-    where: { link: context.params?.link as string },
-    data: { watch: { increment: 1 } },
-  });
-  const article = await prisma.article.findFirst({
-    where: { link: context.params?.link as string },
-    select: {
-      title: true,
-      summary: true,
-      content: true,
-      archive: true,
-      createdAt: true,
-      tags: true,
-      updateAt: true,
-      watch: true,
-      likes: true,
-    },
-  });
-  return {
-    props: { article: { ...article, tags: article?.tags.map(({ name }) => name) }, link: context.params?.link },
-  };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    await prisma.article.update({
+      where: { link: context.params?.link as string },
+      data: { watch: { increment: 1 } },
+    });
+    const article = await prisma.article.findFirst({
+      where: { link: context.params?.link as string },
+      select: {
+        title: true,
+        summary: true,
+        content: true,
+        archive: true,
+        createdAt: true,
+        tags: true,
+        updateAt: true,
+        watch: true,
+        likes: true,
+      },
+    });
+    return {
+      props: { article: { ...article, tags: article?.tags.map(({ name }) => name) }, link: context.params?.link },
+    };
+  } catch {
+    // 如果文章不存在 返回404
+    return {
+      notFound: true,
+    };
+  }
 };
 
 const useStyles = makeStyles((theme) => ({
