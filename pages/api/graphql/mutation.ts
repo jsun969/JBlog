@@ -11,5 +11,6 @@ export const mutation = gql`
       tags: [String]!
     ): Article!
     likeArticle(link: String!): Article
+    deleteArticle(id: Int!): Article
   }
 `;
