@@ -15,10 +15,10 @@ import {
 import { ExitToApp, Menu } from '@material-ui/icons';
 import { ReactNode, useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
+import ConfirmDialog from './ConfirmDialog';
 import Head from 'next/head';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
-import LogoutDialog from './LogoutDialog';
 import apolloClient from '../../lib/apolloClient';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -239,7 +239,9 @@ const Layout: React.FC<LayoutProps> = ({ children, select }) => {
           </Grid>
         )}
       </main>
-      <LogoutDialog
+      <ConfirmDialog
+        title="登出后台?"
+        content="登出后需要重新输入Key才能登陆"
         open={showLogoutDialog}
         onClose={() => {
           toggleShowLogoutDialog(false);
