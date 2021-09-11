@@ -15,20 +15,25 @@ export const getServerSideProps: GetServerSideProps = async () => {
     select: {
       id: true,
       title: true,
+      likes: true,
+      watch: true,
     },
   });
   return { props: { articles } };
 };
 
+interface Article {
+  id: number;
+  title: string;
+  likes: number;
+  watch: number;
+}
 interface ManagePageProps {
-  articles: {
-    id: number;
-    title: string;
-  }[];
+  articles: Article[];
 }
 
 const ManagePage: React.FC<ManagePageProps> = ({ articles }) => {
-  const [stateArticles, setArticles] = useState<{ id: number; title: string }[]>(articles);
+  const [stateArticles, setArticles] = useState<Article[]>(articles);
   const [showDeleteDialog, toggleShowDeleteDialog] = useState<boolean>(false);
   const [deleteArticleTitle, setDeleteArticleTitle] = useState<string>('');
   const [deleteArticleID, setDeleteArticleID] = useState<number>(-1);
@@ -63,6 +68,8 @@ const ManagePage: React.FC<ManagePageProps> = ({ articles }) => {
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>标题</TableCell>
+              <TableCell>获赞</TableCell>
+              <TableCell>浏览</TableCell>
               <TableCell>操作</TableCell>
             </TableRow>
           </TableHead>
@@ -71,6 +78,8 @@ const ManagePage: React.FC<ManagePageProps> = ({ articles }) => {
               <TableRow key={article.id}>
                 <TableCell>{article.id}</TableCell>
                 <TableCell>{article.title}</TableCell>
+                <TableCell>{article.likes}</TableCell>
+                <TableCell>{article.watch}</TableCell>
                 <TableCell>
                   <Link href={`/admin/manage/${article.id}`} passHref>
                     <IconButton size="small">
