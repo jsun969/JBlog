@@ -26,7 +26,6 @@ const getLocalIsLike = (link: string): boolean => {
 
 /**
  * 在本地储存文章点赞状态
- * ! 点赞后导致Server和Client数值不统一报错
  *
  * @param {string} link 文章链接
  */
@@ -62,7 +61,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: { article: { ...article, tags: article?.tags.map(({ name }) => name) }, link: context.params?.link },
     };
   } catch {
-    // 如果文章不存在 返回404
     return {
       notFound: true,
     };
@@ -154,7 +152,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
           startIcon={isLike ? <ThumbUp /> : <ThumbUpOutlined />}
           onClick={handleLike}
         >
-          {getLocalIsLike(link) ? article.likes : article.likes + 1}
+          {getLocalIsLike(link) ? article.likes : article.likes + +isLike}
         </Button>
       </Box>
       <Box my={2}>
