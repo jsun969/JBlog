@@ -3,6 +3,7 @@ import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import { GetServerSideProps } from 'next';
 import Layout from '../../../components/admin/Layout';
+import Link from 'next/link';
 import apolloClient from '../../../lib/apolloClient';
 import { gql } from '@apollo/client';
 import prisma from '../../../lib/prisma';
@@ -71,9 +72,11 @@ const ManagePage: React.FC<ManagePageProps> = ({ articles }) => {
                 <TableCell>{article.id}</TableCell>
                 <TableCell>{article.title}</TableCell>
                 <TableCell>
-                  <IconButton size="small">
-                    <Edit />
-                  </IconButton>
+                  <Link href={`/admin/manage/${article.id}`} passHref>
+                    <IconButton size="small">
+                      <Edit />
+                    </IconButton>
+                  </Link>
                   <IconButton
                     size="small"
                     onClick={() => {
