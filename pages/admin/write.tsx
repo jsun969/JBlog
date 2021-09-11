@@ -40,7 +40,12 @@ const WritePage: React.FC<WritePageProps> = ({ tagsExist, linksExist }) => {
   const [content, setContent] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
 
-  const [postStatus, togglePostStatus] = useState<boolean>(false);
+  enum Status {
+    none,
+    success,
+    error,
+  }
+  const [postStatus, setPostStatus] = useState<Status>(Status.none);
   const [id, setId] = useState<number>();
 
   const handlePost = async () => {
@@ -70,33 +75,17 @@ const WritePage: React.FC<WritePageProps> = ({ tagsExist, linksExist }) => {
         },
       });
       setId(data.createArticle.id);
-      togglePostStatus(true);
+      setPostStatus(Status.success);
     } catch (error) {
       console.log(error);
-      setId(-1);
-      togglePostStatus(true);
+      setPostStatus(Status.error);
     }
   };
 
   return (
     <>
       <Layout select="write">
-        {postStatus ? (
-          <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-            style={{ minHeight: '80vh' }}
-          >
-            {id === -1 ? (
-              <Typography variant="h4">发布失败</Typography>
-            ) : (
-              <Typography variant="h4">发布成功, 文章ID: {id}</Typography>
-            )}
-          </Grid>
-        ) : (
+        {postStatus === Status.none && (
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
@@ -196,6 +185,19 @@ const WritePage: React.FC<WritePageProps> = ({ tagsExist, linksExist }) => {
                 </Paper>
               )}
             </Grid>
+          </Grid>
+        )}
+        {(postStatus === Status.success || postStatus === Status.error) && (
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '80vh' }}
+          >
+            {postStatus === Status.success && <Typography variant="h4">发布成功, 文章ID: {id}</Typography>}
+            {postStatus === Status.error && <Typography variant="h4">发布失败</Typography>}
           </Grid>
         )}
       </Layout>
