@@ -23,7 +23,6 @@
     "graphql": "^15.5.1",
     "highlight.js": "^11.2.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash.merge": "^4.6.2",
     "marked": "^3.0.1",
     "micro": "^9.3.4",
     "next": "^11.1.2",
@@ -36,7 +35,6 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.5",
-    "@types/lodash.merge": "^4.6.6",
     "@types/marked": "^3.0.0",
     "@types/react": "17.0.15",
     "@types/react-dom": "^17.0.9",
