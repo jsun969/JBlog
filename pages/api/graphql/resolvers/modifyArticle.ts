@@ -16,10 +16,12 @@ export async function modifyArticle(
     },
     data: {
       ...data,
-      tags: {
-        set: [],
-        connectOrCreate: tags?.map((tag) => ({ where: { name: tag }, create: { name: tag } })),
-      },
+      tags: tags
+        ? {
+            set: [],
+            connectOrCreate: tags?.map((tag) => ({ where: { name: tag }, create: { name: tag } })),
+          }
+        : undefined,
     },
   });
 }
