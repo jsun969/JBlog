@@ -141,7 +141,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
     </>
   );
 
-  const main = (
+  const Main: React.FC = () => (
     <>
       <Markdown>{article.content}</Markdown>
       <Box textAlign="center">
@@ -177,7 +177,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
           <Box textAlign="center" mt={2}>
             <SubtitleChips />
           </Box>
-          {main}
+          <Main />
         </Hidden>
         <Hidden xsDown implementation="css">
           <Container>
@@ -188,7 +188,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
               <Box textAlign="end" mt={2}>
                 <SubtitleChips />
               </Box>
-              {main}
+              <Main />
             </Paper>
           </Container>
         </Hidden>
