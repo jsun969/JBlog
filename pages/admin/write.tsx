@@ -77,7 +77,7 @@ const WritePage: React.FC<WritePageProps> = ({ tagsExist, linksExist }) => {
       setId(data.createArticle.id);
       setPostStatus(Status.success);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setPostStatus(Status.error);
     }
   };
