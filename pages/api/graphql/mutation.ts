@@ -21,5 +21,6 @@ export const mutation = gql`
       content: String
       tags: [String]
     ): Boolean!
+    modifyAbout(content: String!): Boolean!
   }
 `;
