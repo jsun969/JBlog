@@ -40,20 +40,20 @@ const ManagePage: React.FC<ManagePageProps> = ({ articles }) => {
 
   const handleDelete = async () => {
     try {
-      await apolloClient.mutate({
+      const { data } = await apolloClient.mutate({
         mutation: gql`
           mutation DeleteArticle($id: Int!) {
-            deleteArticle(id: $id) {
-              id
-            }
+            deleteArticle(id: $id)
           }
         `,
         variables: {
           id: deleteArticleID,
         },
       });
-      setArticles(stateArticles.filter(({ id }) => id !== deleteArticleID));
-      toggleShowDeleteDialog(false);
+      if (data.deleteArticle) {
+        setArticles(stateArticles.filter(({ id }) => id !== deleteArticleID));
+        toggleShowDeleteDialog(false);
+      }
     } catch (error) {
       console.error(error);
       toggleShowDeleteDialog(false);

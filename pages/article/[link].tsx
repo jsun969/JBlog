@@ -102,19 +102,19 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
     if (!isLike) {
       try {
         toggleIsLike(true);
-        await apolloClient.mutate({
+        const { data } = await apolloClient.mutate({
           mutation: gql`
             mutation LikeArticle($link: String!) {
-              likeArticle(link: $link) {
-                id
-              }
+              likeArticle(link: $link)
             }
           `,
           variables: {
             link,
           },
         });
-        setLocalIsLike(link);
+        if (data.likeArticle) {
+          setLocalIsLike(link);
+        }
       } catch (error) {
         toggleIsLike(false);
         console.error(error);

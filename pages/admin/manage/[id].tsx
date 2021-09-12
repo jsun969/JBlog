@@ -92,7 +92,7 @@ const ModifyPage: React.FC<ModifyPageProps> = ({ article, tagsExist, linksExist 
 
   const handleSubmit = async () => {
     try {
-      await apolloClient.mutate({
+      const { data } = await apolloClient.mutate({
         mutation: gql`
           mutation ModifyArticle(
             $id: Int!
@@ -111,9 +111,7 @@ const ModifyPage: React.FC<ModifyPageProps> = ({ article, tagsExist, linksExist 
               archive: $archive
               content: $content
               tags: $tags
-            ) {
-              id
-            }
+            )
           }
         `,
         variables: {
@@ -126,7 +124,9 @@ const ModifyPage: React.FC<ModifyPageProps> = ({ article, tagsExist, linksExist 
           tags: !uniqueArrayEqual(tags, article.tags) ? tags : undefined,
         },
       });
-      setSubmitStatus(Status.Success);
+      if (data.modifyArticle) {
+        setSubmitStatus(Status.Success);
+      }
     } catch (error) {
       console.error(error);
       setSubmitStatus(Status.Error);
