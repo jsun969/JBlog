@@ -29,3 +29,9 @@ model Tag {
   name     String    @unique
   articles Article[]
 }
+
+model About {
+  id       Int      @id @default(0)
+  updateAt DateTime @updatedAt
+  content  String
+}
