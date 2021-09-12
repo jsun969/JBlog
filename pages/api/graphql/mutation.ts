@@ -10,8 +10,8 @@ export const mutation = gql`
       content: String!
       tags: [String]!
     ): Article!
-    likeArticle(link: String!): Article
-    deleteArticle(id: Int!): Article
+    likeArticle(link: String!): Boolean!
+    deleteArticle(id: Int!): Boolean!
     modifyArticle(
       id: Int
       title: String
@@ -20,6 +20,6 @@ export const mutation = gql`
       archive: String
       content: String
       tags: [String]
-    ): Article
+    ): Boolean!
   }
 `;

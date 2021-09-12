@@ -10,7 +10,7 @@ export async function modifyArticle(
   { isAdmin }: { isAdmin: boolean }
 ) {
   if (!isAdmin) return null;
-  return await prisma.article.update({
+  await prisma.article.update({
     where: {
       id,
     },
@@ -24,4 +24,5 @@ export async function modifyArticle(
         : undefined,
     },
   });
+  return true;
 }
