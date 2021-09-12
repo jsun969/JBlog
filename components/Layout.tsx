@@ -25,17 +25,18 @@ import {
   Drawer,
   Hidden,
   IconButton,
-  Link,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Link as MuiLink,
   SwipeableDrawer,
   Toolbar,
   Typography,
 } from '@material-ui/core';
 import { ReactNode, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import dayjs from 'dayjs';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -95,18 +96,22 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
           <div className={classes.toolbar} />
         </Hidden>
         <List>
-          <ListItem button selected={select === 'index'}>
-            <ListItemIcon>
-              <HomeOutlined />
-            </ListItemIcon>
-            <ListItemText primary="主页" />
-          </ListItem>
-          <ListItem button selected={select === 'about'}>
-            <ListItemIcon>
-              <AccountCircleOutlined />
-            </ListItemIcon>
-            <ListItemText primary="介绍" />
-          </ListItem>
+          <Link href="/" passHref>
+            <ListItem button selected={select === 'index'}>
+              <ListItemIcon>
+                <HomeOutlined />
+              </ListItemIcon>
+              <ListItemText primary="主页" />
+            </ListItem>
+          </Link>
+          <Link href="/about" passHref>
+            <ListItem button selected={select === 'about'}>
+              <ListItemIcon>
+                <AccountCircleOutlined />
+              </ListItemIcon>
+              <ListItemText primary="介绍" />
+            </ListItem>
+          </Link>
           <ListItem
             button
             onClick={() => {
@@ -268,9 +273,9 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
           </Typography>
           <Typography variant="body2" color="textSecondary" align="center">
             Powered by{' '}
-            <Link color="inherit" href="https://github.com/jsun969/JBlog">
+            <MuiLink color="inherit" href="https://github.com/jsun969/JBlog">
               JBlog
-            </Link>
+            </MuiLink>
           </Typography>
         </footer>
       </main>
