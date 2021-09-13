@@ -39,7 +39,7 @@ model About {
 model Friend {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
-  title       String
+  name        String
   address     String
   description String
   avatar      String
