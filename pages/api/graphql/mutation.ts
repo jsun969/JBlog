@@ -23,5 +23,6 @@ export const mutation = gql`
     ): Boolean!
     modifyAbout(content: String!): Boolean!
     createFriend(title: String!, address: String!, description: String!, avatar: String!): Boolean!
+    modifyFriend(id: Int!, title: String, address: String, description: String, avatar: String): Boolean!
   }
 `;
