@@ -35,3 +35,12 @@ model About {
   updateAt DateTime @updatedAt
   content  String
 }
+
+model Friend {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  title       String
+  address     String
+  description String
+  avatar      String
+}
