@@ -27,20 +27,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface AboutPageProps {
-  article: {
+  article?: {
     content: string;
     updateAt: Date;
   };
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({ article }) => {
+const AboutPage: React.FC<AboutPageProps> = ({ article = { content: '', updateAt: new Date() } }) => {
   const classes = useStyles();
 
   const Main: React.FC = () => (
     <>
-      <Markdown>{article.content}</Markdown>
+      <Markdown>{article?.content || ''}</Markdown>
       <Box textAlign="end">
-        <Chip icon={<EventOutlined />} label={dayjs(article.updateAt).format('YYYY-MM-DD HH:mm:ss')} size="small" />
+        <Chip icon={<EventOutlined />} label={dayjs(article?.updateAt).format('YYYY-MM-DD HH:mm:ss')} size="small" />
       </Box>
     </>
   );

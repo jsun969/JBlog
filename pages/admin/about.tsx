@@ -23,7 +23,7 @@ interface ModifyAboutPageProps {
 }
 
 const ModifyAboutPage: React.FC<ModifyAboutPageProps> = ({ about }) => {
-  const [content, setContent] = useState<string>(about.content);
+  const [content, setContent] = useState<string>(about?.content || '');
 
   enum Status {
     None,
