@@ -1,9 +1,7 @@
-import ArticleCard from '../components/ArticleCard';
+import ArticleCardList from '../components/ArticleCardList';
 import { GetServerSideProps } from 'next';
-import { Grid } from '@material-ui/core';
 import Head from 'next/head';
 import Layout from '../components/Layout';
-import dayjs from 'dayjs';
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -52,21 +50,7 @@ const HomePage: React.FC<HomePageProps> = ({ articles }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout title="荆棘小栈" select="index">
-        <Grid container spacing={3}>
-          {articles.map((article) => (
-            <Grid item key={article.id} xs={12} sm={6} md={4}>
-              <ArticleCard
-                title={article.title}
-                summary={article.summary}
-                tags={article.tags}
-                watch={article.watch}
-                time={dayjs(article.createdAt).format('YYYY-MM-DD')}
-                likes={article.likes}
-                link={article.link}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        <ArticleCardList articles={articles} />
       </Layout>
     </div>
   );
