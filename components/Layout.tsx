@@ -176,12 +176,12 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
               <ListItemText primary="友链" />
             </ListItem>
           </Link>
-          <ListItem button selected={select === 'tags'}>
+          {/* <ListItem button selected={select === 'tags'}>
             <ListItemIcon>
               <LocalOfferOutlined />
             </ListItemIcon>
             <ListItemText primary="标签" />
-          </ListItem>
+          </ListItem> */}
           <ListItem
             button
             onClick={() => {
