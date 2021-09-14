@@ -9,7 +9,6 @@ import {
   ExpandMore,
   HomeOutlined,
   LanguageOutlined,
-  LocalOfferOutlined,
   Menu,
   NaturePeopleOutlined,
   PeopleAltOutlined,
@@ -19,7 +18,6 @@ import {
 } from '@material-ui/icons';
 import {
   AppBar,
-  Box,
   Collapse,
   Divider,
   Drawer,
@@ -216,15 +214,6 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
             <ListItemText primary="开往" />
           </ListItem>
         </List>
-        <Divider />
-        <Box m={2} style={{ display: 'block' }}>
-          <Typography variant="caption" color="textSecondary">
-            赞助商
-          </Typography>
-          <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="noreferrer">
-            <Image src="/upyun.png" alt="upyun" width="128" height="66" />
-          </a>
-        </Box>
       </div>
     );
   };
