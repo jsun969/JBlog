@@ -140,9 +140,11 @@ const Layout: React.FC<LayoutProps> = ({ children, select }) => {
             <ListItemText primary="撰写文章" />
           </ListItem>
         </Link>
-        <ListItem button selected={select === 'friends'}>
-          <ListItemText primary="友链管理" />
-        </ListItem>
+        <Link href="/admin/friends" passHref>
+          <ListItem button selected={select === 'friends'}>
+            <ListItemText primary="友链管理" />
+          </ListItem>
+        </Link>
         <Link href="/admin/about" passHref>
           <ListItem button selected={select === 'about'}>
             <ListItemText primary="修改介绍" />
