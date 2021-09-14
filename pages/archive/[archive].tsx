@@ -1,5 +1,5 @@
+import { GetServerSideProps, NextPage } from 'next';
 import ArticleCardList from '../../components/ArticleCardList';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
 import prisma from '../../lib/prisma';
@@ -48,7 +48,7 @@ interface ArchivePageProps {
   archive: 'code' | 'study' | 'website' | 'game' | 'life';
 }
 
-const ArchivePage: React.FC<ArchivePageProps> = ({ articles, archive }) => {
+const ArchivePage: NextPage<ArchivePageProps> = ({ articles, archive }) => {
   return (
     <div>
       <Head>

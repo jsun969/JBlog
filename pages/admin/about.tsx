@@ -1,5 +1,5 @@
 import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Layout from '../../components/admin/Layout';
 import Markdown from '../../components/Markdown';
 import apolloClient from '../../lib/apolloClient';
@@ -22,7 +22,7 @@ interface ModifyAboutPageProps {
   };
 }
 
-const ModifyAboutPage: React.FC<ModifyAboutPageProps> = ({ about }) => {
+const ModifyAboutPage: NextPage<ModifyAboutPageProps> = ({ about }) => {
   const [content, setContent] = useState<string>(about?.content || '');
 
   enum Status {

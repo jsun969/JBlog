@@ -1,6 +1,6 @@
 import { Button, Grid, MenuItem, Paper, TextField, Typography } from '@material-ui/core';
+import { GetServerSideProps, NextPage } from 'next';
 import { Autocomplete } from '@material-ui/lab';
-import { GetServerSideProps } from 'next';
 import Layout from '../../components/admin/Layout';
 import Markdown from '../../components/Markdown';
 import apolloClient from '../../lib/apolloClient';
@@ -32,7 +32,7 @@ interface WritePageProps {
   linksExist: string[];
 }
 
-const WritePage: React.FC<WritePageProps> = ({ tagsExist, linksExist }) => {
+const WritePage: NextPage<WritePageProps> = ({ tagsExist, linksExist }) => {
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
   const [link, setLink] = useState<string>('');

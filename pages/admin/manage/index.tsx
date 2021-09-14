@@ -1,7 +1,7 @@
 import { Delete, Edit } from '@material-ui/icons';
+import { GetServerSideProps, NextPage } from 'next';
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
-import { GetServerSideProps } from 'next';
 import Layout from '../../../components/admin/Layout';
 import Link from 'next/link';
 import apolloClient from '../../../lib/apolloClient';
@@ -32,7 +32,7 @@ interface ManagePageProps {
   articles: Article[];
 }
 
-const ManagePage: React.FC<ManagePageProps> = ({ articles }) => {
+const ManagePage: NextPage<ManagePageProps> = ({ articles }) => {
   const [stateArticles, setArticles] = useState<Article[]>(articles);
   const [showDeleteDialog, toggleShowDeleteDialog] = useState<boolean>(false);
   const [deleteArticleTitle, setDeleteArticleTitle] = useState<string>('');

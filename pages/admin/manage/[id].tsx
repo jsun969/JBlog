@@ -1,6 +1,6 @@
 import { Button, Grid, MenuItem, Paper, TextField, Typography, makeStyles } from '@material-ui/core';
+import { GetServerSideProps, NextPage } from 'next';
 import { Autocomplete } from '@material-ui/lab';
-import { GetServerSideProps } from 'next';
 import Layout from '../../../components/admin/Layout';
 import Markdown from '../../../components/Markdown';
 import apolloClient from '../../../lib/apolloClient';
@@ -73,7 +73,7 @@ interface ModifyPageProps {
   linksExist: string[];
 }
 
-const ModifyPage: React.FC<ModifyPageProps> = ({ article, tagsExist, linksExist }) => {
+const ModifyPage: NextPage<ModifyPageProps> = ({ article, tagsExist, linksExist }) => {
   const classes = useStyles();
 
   const [title, setTitle] = useState<string>(article.title);

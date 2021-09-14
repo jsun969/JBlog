@@ -1,6 +1,6 @@
 import { Box, Chip, Container, Hidden, Paper, makeStyles } from '@material-ui/core';
+import { GetServerSideProps, NextPage } from 'next';
 import { EventOutlined } from '@material-ui/icons';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import Markdown from '../components/Markdown';
@@ -33,7 +33,7 @@ interface AboutPageProps {
   };
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({ article = { content: '', updateAt: new Date() } }) => {
+const AboutPage: NextPage<AboutPageProps> = ({ article = { content: '', updateAt: new Date() } }) => {
   const classes = useStyles();
 
   const Main: React.FC = () => (

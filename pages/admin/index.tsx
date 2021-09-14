@@ -1,9 +1,10 @@
 import { Grid, Typography } from '@material-ui/core';
 import Layout from '../../components/admin/Layout';
+import { NextPage } from 'next';
 import React from 'react';
 import dayjs from 'dayjs';
 
-const AdminHomePage: React.FC = () => {
+const AdminHomePage: NextPage = () => {
   const greet = () => {
     const time = dayjs().hour();
     if ([0, 1, 2, 3, 4, 5].includes(time)) {

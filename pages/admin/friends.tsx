@@ -14,8 +14,8 @@ import {
   TextField,
 } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
+import { GetServerSideProps, NextPage } from 'next';
 import ConfirmDialog from '../../components/admin/ConfirmDialog';
-import { GetServerSideProps } from 'next';
 import Layout from '../../components/admin/Layout';
 import apolloClient from '../../lib/apolloClient';
 import { gql } from '@apollo/client';
@@ -48,7 +48,7 @@ interface FriendsPageProps {
   friends: Friend[];
 }
 
-const FriendsPage: React.FC<FriendsPageProps> = ({ friends }) => {
+const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
   const [stateFriends, setFriends] = useState<Friend[]>(friends);
 
   const [name, setName] = useState<string>('');

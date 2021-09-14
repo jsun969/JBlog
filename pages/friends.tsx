@@ -16,8 +16,8 @@ import {
   TableRow,
   makeStyles,
 } from '@material-ui/core';
+import { GetServerSideProps, NextPage } from 'next';
 import React, { useState } from 'react';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import prisma from '../lib/prisma';
@@ -52,7 +52,7 @@ interface FriendsPageProps {
   }[];
 }
 
-const FriendsPage: React.FC<FriendsPageProps> = ({ friends }) => {
+const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
   const classes = useRowStyles();
 
   const [showWebsiteInfo, toggleShowWebsiteInfo] = useState<boolean>(false);

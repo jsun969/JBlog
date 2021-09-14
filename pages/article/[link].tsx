@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Container, Hidden, Paper, Typography, makeStyles } from '@material-ui/core';
 import { EventOutlined, List, ThumbUp, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
+import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
 import Markdown from '../../components/Markdown';
@@ -89,7 +89,7 @@ interface ArticlePageProps {
   link: string;
 }
 
-const ArticlePage: React.FC<ArticlePageProps> = ({ article, link }) => {
+const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
   const classes = useStyles();
 
   const [isLike, toggleIsLike] = useState<boolean>(false);
