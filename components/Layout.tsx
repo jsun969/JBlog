@@ -89,7 +89,9 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
   const [isDrawerOpen, toggleIsDrawerOpen] = useState<boolean>(false);
 
   const DrawerContent: React.FC = () => {
-    const [showArchive, toggleShowArchive] = useState<boolean>(['code', 'study', 'website', 'game'].includes(select || ''));
+    const [showArchive, toggleShowArchive] = useState<boolean>(
+      ['code', 'study', 'website', 'game', 'life'].includes(select || '')
+    );
     return (
       <div className={classes.drawerContent}>
         <Hidden xsDown implementation="css">
@@ -125,36 +127,46 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
             {showArchive ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={showArchive}>
-            <ListItem button className={classes.nestedList} selected={select === 'code'}>
-              <ListItemIcon>
-                <CodeOutlined />
-              </ListItemIcon>
-              <ListItemText primary="编程" />
-            </ListItem>
-            <ListItem button className={classes.nestedList} selected={select === 'study'}>
-              <ListItemIcon>
-                <BookOutlined />
-              </ListItemIcon>
-              <ListItemText primary="学习" />
-            </ListItem>
-            <ListItem button className={classes.nestedList} selected={select === 'website'}>
-              <ListItemIcon>
-                <LanguageOutlined />
-              </ListItemIcon>
-              <ListItemText primary="建站" />
-            </ListItem>
-            <ListItem button className={classes.nestedList} selected={select === 'game'}>
-              <ListItemIcon>
-                <VideogameAssetOutlined />
-              </ListItemIcon>
-              <ListItemText primary="游戏" />
-            </ListItem>
-            <ListItem button className={classes.nestedList} selected={select === 'life'}>
-              <ListItemIcon>
-                <NaturePeopleOutlined />
-              </ListItemIcon>
-              <ListItemText primary="生活" />
-            </ListItem>
+            <Link href="/archive/code" passHref>
+              <ListItem button className={classes.nestedList} selected={select === 'code'}>
+                <ListItemIcon>
+                  <CodeOutlined />
+                </ListItemIcon>
+                <ListItemText primary="编程" />
+              </ListItem>
+            </Link>
+            <Link href="/archive/study" passHref>
+              <ListItem button className={classes.nestedList} selected={select === 'study'}>
+                <ListItemIcon>
+                  <BookOutlined />
+                </ListItemIcon>
+                <ListItemText primary="学习" />
+              </ListItem>
+            </Link>
+            <Link href="/archive/website" passHref>
+              <ListItem button className={classes.nestedList} selected={select === 'website'}>
+                <ListItemIcon>
+                  <LanguageOutlined />
+                </ListItemIcon>
+                <ListItemText primary="建站" />
+              </ListItem>
+            </Link>
+            <Link href="/archive/game" passHref>
+              <ListItem button className={classes.nestedList} selected={select === 'game'}>
+                <ListItemIcon>
+                  <VideogameAssetOutlined />
+                </ListItemIcon>
+                <ListItemText primary="游戏" />
+              </ListItem>
+            </Link>
+            <Link href="/archive/life" passHref>
+              <ListItem button className={classes.nestedList} selected={select === 'life'}>
+                <ListItemIcon>
+                  <NaturePeopleOutlined />
+                </ListItemIcon>
+                <ListItemText primary="生活" />
+              </ListItem>
+            </Link>
           </Collapse>
           <Link href="/friends" passHref>
             <ListItem button selected={select === 'friends'}>
