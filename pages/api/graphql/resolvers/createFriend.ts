@@ -6,6 +6,6 @@ export async function createFriend(
   { isAdmin }: { isAdmin: boolean }
 ) {
   if (!isAdmin) return null;
-  await prisma.friend.create({ data });
-  return true;
+  const { id } = await prisma.friend.create({ data });
+  return id;
 }
