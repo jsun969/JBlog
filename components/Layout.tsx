@@ -156,12 +156,14 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
               <ListItemText primary="生活" />
             </ListItem>
           </Collapse>
-          <ListItem button selected={select === 'friends'}>
-            <ListItemIcon>
-              <PeopleAltOutlined />
-            </ListItemIcon>
-            <ListItemText primary="友链" />
-          </ListItem>
+          <Link href="/friends" passHref>
+            <ListItem button selected={select === 'friends'}>
+              <ListItemIcon>
+                <PeopleAltOutlined />
+              </ListItemIcon>
+              <ListItemText primary="友链" />
+            </ListItem>
+          </Link>
           <ListItem button selected={select === 'tags'}>
             <ListItemIcon>
               <LocalOfferOutlined />
