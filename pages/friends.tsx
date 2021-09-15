@@ -64,8 +64,11 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout select="friends" title="友链 - 荆棘小栈">
-        <Alert severity="info">
-          <AlertTitle>申请友链</AlertTitle>请
+        <Alert severity="success">
+          <AlertTitle>
+            <strong>申请友链</strong>
+          </AlertTitle>
+          请
           <Link
             color="inherit"
             onClick={() => {
