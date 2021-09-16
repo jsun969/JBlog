@@ -65,7 +65,7 @@ const GET_ADMIN_BY_TOKEN = gql`
 
 interface LayoutProps {
   children: ReactNode;
-  select: 'write' | 'manage' | 'friends' | 'about' | 'index';
+  select: 'write' | 'manage' | 'friends' | 'about' | 'index' | 'bulletin';
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, select }) => {
@@ -148,6 +148,11 @@ const Layout: React.FC<LayoutProps> = ({ children, select }) => {
         <Link href="/admin/about" passHref>
           <ListItem button selected={select === 'about'}>
             <ListItemText primary="修改介绍" />
+          </ListItem>
+        </Link>
+        <Link href="/admin/bulletin" passHref>
+          <ListItem button selected={select === 'bulletin'}>
+            <ListItemText primary="修改公告" />
           </ListItem>
         </Link>
       </List>
