@@ -1,3 +1,4 @@
+import { Alert, AlertTitle } from '@material-ui/lab';
 import { GetServerSideProps, NextPage } from 'next';
 import ArticleCardList from '../components/ArticleCardList';
 import Head from 'next/head';
@@ -18,12 +19,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
       likes: true,
     },
   });
+  const bulletin = await prisma.bulletin.findFirst({ select: { content: true } });
   return {
     props: {
       articles: articles.map(({ tags, ...info }) => ({
         tags: tags.map(({ name }) => name),
         ...info,
       })),
+      bulletin,
     },
   };
 };
@@ -39,9 +42,12 @@ interface HomePageProps {
     watch: number;
     likes: number;
   }[];
+  bulletin: {
+    content: string;
+  };
 }
 
-const HomePage: NextPage<HomePageProps> = ({ articles }) => {
+const HomePage: NextPage<HomePageProps> = ({ articles, bulletin }) => {
   return (
     <div>
       <Head>
@@ -50,6 +56,14 @@ const HomePage: NextPage<HomePageProps> = ({ articles }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout title="荆棘小栈" select="index">
+        {bulletin?.content && (
+          <Alert severity="info" style={{ marginBottom: 16 }}>
+            <AlertTitle>
+              <strong>公告</strong>
+            </AlertTitle>
+            {bulletin?.content}
+          </Alert>
+        )}
         <ArticleCardList articles={articles} />
       </Layout>
     </div>
