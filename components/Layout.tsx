@@ -238,9 +238,9 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
             <Typography variant="h6" className={classes.title}>
               {title}
             </Typography>
-            <IconButton edge="end" color="inherit">
+            {/* <IconButton edge="end" color="inherit">
               <Search />
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <nav>
