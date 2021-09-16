@@ -36,6 +36,12 @@ model About {
   content  String
 }
 
+model Bulletin {
+  id       Int      @id @default(0)
+  updateAt DateTime @updatedAt
+  content  String
+}
+
 model Friend {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
