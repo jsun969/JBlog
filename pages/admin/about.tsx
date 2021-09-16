@@ -75,7 +75,7 @@ const ModifyAboutPage: NextPage<ModifyAboutPageProps> = ({ about }) => {
               variant="contained"
               color="primary"
               size="large"
-              disabled={!(content && content !== about.content)}
+              disabled={!(content && content !== (about?.content || ''))}
               onClick={handleSubmit}
             >
               修改
