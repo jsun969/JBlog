@@ -6,9 +6,20 @@ import { deleteFriend } from './deleteFriend';
 import { likeArticle } from './likeArticle';
 import { modifyAbout } from './modifyAbout';
 import { modifyArticle } from './modifyArticle';
+import { modifyBulletin } from './modifyBulletin';
 import { modifyFriend } from './modifyFriend';
 
 export const resolvers = {
   Query: { adminAuth },
-  Mutation: { createArticle, deleteArticle, likeArticle, modifyArticle, modifyAbout, createFriend, modifyFriend, deleteFriend },
+  Mutation: {
+    createArticle,
+    deleteArticle,
+    likeArticle,
+    modifyArticle,
+    modifyAbout,
+    createFriend,
+    modifyFriend,
+    deleteFriend,
+    modifyBulletin,
+  },
 };
