@@ -1,0 +1,14 @@
+{
+  "NextJS SSR": {
+    "scope": "typescriptreact",
+    "prefix": "ssr",
+    "body": [
+      "export const getServerSideProps: GetServerSideProps = async (context) => {",
+      "  return {",
+      "    props: {},",
+      "  };",
+      "};"
+    ],
+    "description": "NextJS Server-side Rendering"
+  }
+}
