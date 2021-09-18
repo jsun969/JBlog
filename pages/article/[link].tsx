@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         archive: true,
         createdAt: true,
         tags: true,
-        updateAt: true,
+        modifiedAt: true,
         watch: true,
         likes: true,
       },
@@ -81,7 +81,7 @@ interface ArticlePageProps {
     content: string;
     archive: string;
     createdAt: Date;
-    updateAt: Date;
+    modifiedAt: Date;
     tags: string[];
     watch: number;
     likes: number;
@@ -160,7 +160,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
           <Chip key={index} label={tag} style={{ marginRight: 8 }} />
         ))}
       </Box>
-      <Box textAlign="end">编辑于: {dayjs(article.updateAt).format('YYYY-MM-DD HH:mm:ss')}</Box>
+      <Box textAlign="end">编辑于: {dayjs(article.modifiedAt).format('YYYY-MM-DD HH:mm:ss')}</Box>
     </>
   );
 

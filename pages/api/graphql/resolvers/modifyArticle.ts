@@ -16,6 +16,7 @@ export async function modifyArticle(
     },
     data: {
       ...data,
+      modifiedAt: new Date(),
       tags: tags
         ? {
             set: [],

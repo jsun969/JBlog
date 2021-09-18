@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "sqlite"
   url      = "file:./db.db"
@@ -11,17 +8,17 @@ generator client {
 }
 
 model Article {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  title     String
-  summary   String
-  link      String   @unique
-  archive   String
-  content   String
-  tags      Tag[]
-  watch     Int      @default(0)
-  likes     Int      @default(0)
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @default(now())
+  title      String
+  summary    String
+  link       String   @unique
+  archive    String
+  content    String
+  tags       Tag[]
+  watch      Int      @default(0)
+  likes      Int      @default(0)
 }
 
 model Tag {
