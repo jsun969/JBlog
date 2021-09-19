@@ -9,10 +9,10 @@ import {
   ExpandMore,
   HomeOutlined,
   LanguageOutlined,
+  LocalOfferOutlined,
   Menu,
   NaturePeopleOutlined,
   PeopleAltOutlined,
-  Search,
   TrainOutlined,
   VideogameAssetOutlined,
 } from '@material-ui/icons';
@@ -33,7 +33,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ReactNode, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { makeStyles } from '@material-ui/core/styles';
@@ -174,12 +173,14 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
               <ListItemText primary="友链" />
             </ListItem>
           </Link>
-          {/* <ListItem button selected={select === 'tags'}>
-            <ListItemIcon>
-              <LocalOfferOutlined />
-            </ListItemIcon>
-            <ListItemText primary="标签" />
-          </ListItem> */}
+          <Link href="/tags" passHref>
+            <ListItem button selected={select === 'tags'}>
+              <ListItemIcon>
+                <LocalOfferOutlined />
+              </ListItemIcon>
+              <ListItemText primary="标签" />
+            </ListItem>
+          </Link>
           <ListItem
             button
             onClick={() => {
