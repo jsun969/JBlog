@@ -50,7 +50,7 @@ interface ArchivePageProps {
 
 const ArchivePage: NextPage<ArchivePageProps> = ({ articles, archive }) => {
   return (
-    <div>
+    <>
       <Head>
         <title>{{ code: '编程', study: '学习', website: '建站', game: '游戏', life: '生活' }[archive]}归档 - 荆棘小栈</title>
         <link rel="icon" href="/favicon.ico" />
@@ -61,7 +61,7 @@ const ArchivePage: NextPage<ArchivePageProps> = ({ articles, archive }) => {
       >
         <ArticleCardList articles={articles} />
       </Layout>
-    </div>
+    </>
   );
 };
 
