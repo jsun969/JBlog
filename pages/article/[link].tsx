@@ -9,6 +9,7 @@ import apolloClient from '../../lib/apolloClient';
 import dayjs from 'dayjs';
 import { gql } from '@apollo/client';
 import prisma from '../../lib/prisma';
+import { useRouter } from 'next/dist/client/router';
 
 /**
  * 判断当前文章是否点赞过
@@ -58,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     });
     return {
-      props: { article: { ...article, tags: article?.tags.map(({ name }) => name) }, link: context.params?.link },
+      props: { article, link: context.params?.link },
     };
   } catch {
     return {
@@ -82,7 +83,7 @@ interface ArticlePageProps {
     archive: string;
     createdAt: Date;
     modifiedAt: Date;
-    tags: string[];
+    tags: { id: number; name: string }[];
     watch: number;
     likes: number;
   };
@@ -91,6 +92,7 @@ interface ArticlePageProps {
 
 const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
   const classes = useStyles();
+  const router = useRouter();
 
   const [isLike, toggleIsLike] = useState<boolean>(false);
 
@@ -131,6 +133,10 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
         label={{ code: '编程', study: '学习', website: '建站', game: '游戏', life: '生活' }[article.archive]}
         size="small"
         style={{ marginInline: 4 }}
+        onClick={(e) => {
+          e.preventDefault();
+          router.push(`/archive/${article.archive}`);
+        }}
       />
       <Chip
         variant="outlined"
@@ -157,7 +163,15 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
       </Box>
       <Box my={2}>
         {article.tags.map((tag, index) => (
-          <Chip key={index} label={tag} style={{ marginRight: 8 }} />
+          <Chip
+            key={index}
+            label={tag.name}
+            style={{ marginRight: 8 }}
+            onClick={(e) => {
+              e.preventDefault();
+              router.push(`/tag/${tag.id}`);
+            }}
+          />
         ))}
       </Box>
       <Box textAlign="end">编辑于: {dayjs(article.modifiedAt).format('YYYY-MM-DD HH:mm:ss')}</Box>
