@@ -39,6 +39,7 @@ const WritePage: NextPage<WritePageProps> = ({ tagsExist, linksExist }) => {
   const [archive, setArchive] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
+  const [createdAt, setCreatedAt] = useState<string>('');
 
   enum Status {
     none,
@@ -59,8 +60,17 @@ const WritePage: NextPage<WritePageProps> = ({ tagsExist, linksExist }) => {
             $archive: String!
             $content: String!
             $tags: [String]!
+            $createdAt: String
           ) {
-            createArticle(title: $title, summary: $summary, link: $link, archive: $archive, content: $content, tags: $tags) {
+            createArticle(
+              title: $title
+              summary: $summary
+              link: $link
+              archive: $archive
+              content: $content
+              tags: $tags
+              createdAt: $createdAt
+            ) {
               id
             }
           }
@@ -72,6 +82,7 @@ const WritePage: NextPage<WritePageProps> = ({ tagsExist, linksExist }) => {
           archive,
           content,
           tags,
+          createdAt,
         },
       });
       setId(data.createArticle.id);
@@ -167,12 +178,44 @@ const WritePage: NextPage<WritePageProps> = ({ tagsExist, linksExist }) => {
                 renderInput={(params) => <TextField {...params} variant="outlined" label="标签" fullWidth />}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="发布时间"
+                variant="outlined"
+                value={createdAt}
+                onChange={(event) => {
+                  setCreatedAt(event.target.value);
+                }}
+                error={
+                  !/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1]) (0\d|1\d|2[0-3])(:([0-5]\d)){2}/.test(createdAt) &&
+                  !!createdAt
+                }
+                helperText={
+                  !/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1]) (0\d|1\d|2[0-3])(:([0-5]\d)){2}/.test(createdAt) &&
+                  !!createdAt &&
+                  '时间格式错误'
+                }
+              />
+            </Grid>
             <Grid container item xs={12} justifyContent="flex-end">
               <Button
                 variant="contained"
                 color="primary"
                 size="large"
-                disabled={!(title && summary && link && archive && content && !linksExist.includes(link) && tags.length)}
+                disabled={
+                  !(
+                    title &&
+                    summary &&
+                    link &&
+                    archive &&
+                    content &&
+                    !linksExist.includes(link) &&
+                    tags.length &&
+                    (/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1]) (0\d|1\d|2[0-3])(:([0-5]\d)){2}/.test(createdAt) ||
+                      !createdAt)
+                  )
+                }
                 onClick={handlePost}
               >
                 发布

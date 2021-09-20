@@ -9,6 +9,7 @@ export const mutation = gql`
       archive: String!
       content: String!
       tags: [String]!
+      createdAt: String
     ): Article!
     likeArticle(link: String!): Boolean!
     deleteArticle(id: Int!): Boolean!
