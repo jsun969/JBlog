@@ -71,15 +71,17 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
           请
           <Link
             color="inherit"
+            component="button"
+            variant="body2"
             onClick={() => {
               toggleShowWebsiteInfo(!showWebsiteInfo);
             }}
           >
-            <strong>添加本站</strong>
+            <strong>添加本站(点这里)</strong>
           </Link>
           为友链后 前往Github提交
           <Link href="https://github.com/jsun969/JBlog/issues" color="inherit">
-            <strong>申请友链Issue</strong>
+            <strong>申请友链Issue(点这里)</strong>
           </Link>
         </Alert>
         <TableContainer>
