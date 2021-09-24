@@ -7,5 +7,13 @@ export async function createFriend(
 ) {
   if (!isAdmin) return null;
   const { id } = await prisma.friend.create({ data });
+  await prisma.friend.update({
+    where: {
+      id,
+    },
+    data: {
+      order: id,
+    },
+  });
   return id;
 }

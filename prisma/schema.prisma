@@ -46,4 +46,5 @@ model Friend {
   address     String
   description String
   avatar      String
+  order       Int      @default(0)
 }
