@@ -24,7 +24,7 @@ import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const friends = await prisma.friend.findMany({
-    orderBy: { createdAt: 'asc' },
+    orderBy: { order: 'asc' },
     select: {
       name: true,
       address: true,
