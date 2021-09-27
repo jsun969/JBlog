@@ -1,3 +1,4 @@
+import { ArrowDownward, ArrowUpward, Delete, Edit } from '@material-ui/icons';
 import {
   Button,
   Dialog,
@@ -13,24 +14,24 @@ import {
   TableRow,
   TextField,
 } from '@material-ui/core';
-import { Delete, Edit } from '@material-ui/icons';
 import { GetServerSideProps, NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import ConfirmDialog from '../../components/admin/ConfirmDialog';
 import Layout from '../../components/admin/Layout';
 import apolloClient from '../../lib/apolloClient';
 import { gql } from '@apollo/client';
 import prisma from '../../lib/prisma';
-import { useState } from 'react';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const friends = await prisma.friend.findMany({
-    orderBy: { createdAt: 'desc' },
+    orderBy: { order: 'asc' },
     select: {
       id: true,
       name: true,
       address: true,
       description: true,
       avatar: true,
+      order: true,
     },
   });
   return { props: { friends } };
@@ -42,6 +43,8 @@ interface Friend {
   address: string;
   description: string;
   avatar: string;
+  order: number;
+  index?: number;
 }
 
 interface FriendsPageProps {
@@ -49,7 +52,7 @@ interface FriendsPageProps {
 }
 
 const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
-  const [stateFriends, setFriends] = useState<Friend[]>(friends);
+  const [stateFriends, setFriends] = useState<Friend[]>(friends.map((friend, index) => ({ ...friend, index })));
 
   const [name, setName] = useState<string>('');
   const [address, setAddress] = useState<string>('');
@@ -66,7 +69,7 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
         variables: { name, address, description, avatar },
       });
       if (data.createFriend) {
-        setFriends([{ id: data.createFriend, name, address, description, avatar }, ...stateFriends]);
+        setFriends([...stateFriends, { id: data.createFriend, name, address, description, avatar, order: data.createFriend }]);
         setName('');
         setAddress('');
         setDescription('');
@@ -103,7 +106,14 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
         setFriends(
           stateFriends.map((friend) =>
             friend.id === modifyId
-              ? { id: modifyId, name: modifyName, address: modifyAddress, description: modifyDescription, avatar: modifyAvatar }
+              ? {
+                  id: modifyId,
+                  name: modifyName,
+                  address: modifyAddress,
+                  description: modifyDescription,
+                  avatar: modifyAvatar,
+                  order: modifyId,
+                }
               : friend
           )
         );
@@ -132,6 +142,89 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
       if (data.deleteFriend) {
         setFriends(stateFriends.filter((friend) => friend.id !== deleteId));
         toggleOpenDeleteDialog(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * 上移友链
+   *
+   * @param {Friend} friend 被操作友链
+   */
+  const handleMoveUp = (friend: Friend) => {
+    const originFriendIndex = stateFriends.findIndex(({ id }) => id === friend.id);
+    const prevFriendIndex = originFriendIndex === 0 ? stateFriends.length - 1 : originFriendIndex - 1;
+    const originFriend = friend;
+    const prevFriend = stateFriends[prevFriendIndex];
+    setFriends(
+      stateFriends.map((friend, index) => {
+        if (index === originFriendIndex) {
+          return prevFriend;
+        } else if (index === prevFriendIndex) {
+          return originFriend;
+        } else {
+          return friend;
+        }
+      })
+    );
+  };
+  /**
+   * 下移友链
+   *
+   * @param {Friend} friend 被操作友链
+   */
+  const handleMoveDown = (friend: Friend) => {
+    const originFriendIndex = stateFriends.findIndex(({ id }) => id === friend.id);
+    const nextFriendIndex = originFriendIndex === stateFriends.length - 1 ? 0 : originFriendIndex + 1;
+    const originFriend = friend;
+    const nextFriend = stateFriends[nextFriendIndex];
+    setFriends(
+      stateFriends.map((friend, index) => {
+        if (index === originFriendIndex) {
+          return nextFriend;
+        } else if (index === nextFriendIndex) {
+          return originFriend;
+        } else {
+          return friend;
+        }
+      })
+    );
+  };
+
+  const [showModifyOrderButton, toggleShowModifyOrderButton] = useState<boolean>(true);
+  const [orderDiff, setOrderDiff] = useState<{ id: number; order: number }[]>([]);
+  useEffect(() => {
+    if (friends.length !== stateFriends.length) {
+      toggleShowModifyOrderButton(false);
+    }
+    const orders = stateFriends.map(({ order }) => order).sort((a, b) => a - b);
+    stateFriends.forEach(({ index: originIndex, id }, index) => {
+      if (originIndex !== index) {
+        setOrderDiff((prevOrderDiff) => [...prevOrderDiff, { id, order: orders[index] }]);
+      }
+    });
+    return () => {
+      setOrderDiff([]);
+    };
+  }, [stateFriends, friends]);
+
+  const handleModifyOrder = async () => {
+    try {
+      console.log(orderDiff);
+      const { data } = await apolloClient.mutate({
+        mutation: gql`
+          mutation ModifyFriendsOrder($orders: [Order]!) {
+            modifyFriendsOrder(orders: $orders)
+          }
+        `,
+        variables: {
+          orders: orderDiff,
+        },
+      });
+      if (data.modifyFriendsOrder) {
+        setFriends(stateFriends.map((friend, index) => ({ ...friend, index })));
       }
     } catch (error) {
       console.error(error);
@@ -206,7 +299,15 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
           <TableBody>
             {stateFriends.map((friend) => (
               <TableRow key={friend.id}>
-                <TableCell>{friend.name}</TableCell>
+                <TableCell>
+                  <IconButton size="small" onClick={() => handleMoveUp(friend)}>
+                    <ArrowUpward />
+                  </IconButton>
+                  <IconButton size="small" onClick={() => handleMoveDown(friend)}>
+                    <ArrowDownward />
+                  </IconButton>
+                </TableCell>
+                <TableCell align="center">{friend.name}</TableCell>
                 <TableCell align="right">
                   <IconButton
                     size="small"
@@ -237,6 +338,17 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      {showModifyOrderButton && (
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginTop: 16 }}
+          onClick={handleModifyOrder}
+          disabled={orderDiff.length === 0}
+        >
+          修改顺序
+        </Button>
+      )}
       <Dialog
         open={openModifyDialog}
         onClose={() => {
