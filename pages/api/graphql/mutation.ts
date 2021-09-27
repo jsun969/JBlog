@@ -1,6 +1,11 @@
 import { gql } from 'apollo-server-micro';
 
 export const mutation = gql`
+  input Order {
+    id: Int!
+    order: Int!
+  }
+
   type Mutation {
     createArticle(
       title: String!
@@ -27,5 +32,6 @@ export const mutation = gql`
     modifyFriend(id: Int!, name: String, address: String, description: String, avatar: String): Boolean!
     deleteFriend(id: Int!): Boolean!
     modifyBulletin(content: String!): Boolean!
+    modifyFriendsOrder(orders: [Order]!): Boolean!
   }
 `;

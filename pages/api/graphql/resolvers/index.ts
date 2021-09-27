@@ -8,6 +8,7 @@ import { modifyAbout } from './modifyAbout';
 import { modifyArticle } from './modifyArticle';
 import { modifyBulletin } from './modifyBulletin';
 import { modifyFriend } from './modifyFriend';
+import { modifyFriendsOrder } from './modifyFriendsOrder';
 
 export const resolvers = {
   Query: { adminAuth },
@@ -21,5 +22,6 @@ export const resolvers = {
     modifyFriend,
     deleteFriend,
     modifyBulletin,
+    modifyFriendsOrder,
   },
 };
