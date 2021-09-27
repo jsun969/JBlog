@@ -1,8 +1,9 @@
-import { Box, Button, Chip, Container, Hidden, Paper, Typography, makeStyles } from '@material-ui/core';
+import { Box, Button, Chip, Container, Hidden, Link, Paper, Typography, makeStyles } from '@material-ui/core';
 import { EventOutlined, List, ThumbUp, ThumbUpOutlined, VisibilityOutlined } from '@material-ui/icons';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 import Layout from '../../components/Layout';
 import Markdown from '../../components/Markdown';
 import apolloClient from '../../lib/apolloClient';
@@ -175,6 +176,16 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
         ))}
       </Box>
       <Box textAlign="end">编辑于: {dayjs(article.modifiedAt).format('YYYY-MM-DD HH:mm:ss')}</Box>
+      <Box>
+        <Image alt="知识共享许可协议" src="/cc-by-nc-sa-4.0.png" width="80" height="31" />
+      </Box>
+      <Typography variant="caption">
+        本作品采用
+        <Link href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+          知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议
+        </Link>
+        进行许可
+      </Typography>
     </>
   );
 
