@@ -6,14 +6,11 @@ export async function modifyFriendsOrder(
   { isAdmin }: { isAdmin: boolean }
 ) {
   if (!isAdmin) return null;
-  console.log(orders);
-  await Promise.all(
-    orders.map(({ id, order }) => {
-      return prisma.friend.update({
-        where: { id },
-        data: { order },
-      });
-    })
-  );
+  for (const { id, order } of orders) {
+    await prisma.friend.update({
+      where: { id },
+      data: { order },
+    });
+  }
   return true;
 }
