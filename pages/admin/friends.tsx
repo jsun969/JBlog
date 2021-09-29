@@ -88,12 +88,7 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
   };
 
   const [openModifyDialog, toggleOpenModifyDialog] = useState<boolean>(false);
-  const [modifyId, setModifyId] = useState<number>(-1);
-  const [modifyName, setModifyName] = useState<string>('');
-  const [modifyAddress, setModifyAddress] = useState<string>('');
-  const [modifyDescription, setModifyDescription] = useState<string>('');
-  const [modifyAvatar, setModifyAvatar] = useState<string>('');
-  const [modifyCreateAt, setModifyCreateAt] = useState<Date>(new Date());
+  const [modifyFriend, setModifyFriend] = useState<Partial<Friend>>({});
   const handleModify = async () => {
     try {
       const { data } = await apolloClient.mutate({
@@ -103,29 +98,15 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
           }
         `,
         variables: {
-          id: modifyId,
-          name: modifyName,
-          address: modifyAddress,
-          description: modifyDescription,
-          avatar: modifyAvatar,
+          id: modifyFriend.id,
+          name: modifyFriend.name,
+          address: modifyFriend.address,
+          description: modifyFriend.description,
+          avatar: modifyFriend.avatar,
         },
       });
       if (data.modifyFriend) {
-        setFriends(
-          stateFriends.map((friend) =>
-            friend.id === modifyId
-              ? {
-                  id: modifyId,
-                  name: modifyName,
-                  address: modifyAddress,
-                  description: modifyDescription,
-                  avatar: modifyAvatar,
-                  order: modifyId,
-                  createdAt: modifyCreateAt,
-                }
-              : friend
-          )
-        );
+        setFriends(stateFriends.map((friend) => (friend.id === modifyFriend.id ? { ...friend, ...modifyFriend } : friend)));
         toggleOpenModifyDialog(false);
       }
     } catch (error) {
@@ -321,12 +302,7 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
                   <IconButton
                     size="small"
                     onClick={() => {
-                      setModifyId(friend.id);
-                      setModifyName(friend.name);
-                      setModifyAddress(friend.address);
-                      setModifyDescription(friend.description);
-                      setModifyAvatar(friend.avatar);
-                      setModifyCreateAt(friend.createdAt);
+                      setModifyFriend(friend);
                       toggleOpenModifyDialog(true);
                     }}
                   >
@@ -371,41 +347,41 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
             autoFocus
             margin="dense"
             label="名称"
-            value={modifyName}
+            value={modifyFriend?.name}
             onChange={(event) => {
-              setModifyName(event.target.value);
+              setModifyFriend({ ...modifyFriend, name: event.target.value });
             }}
             fullWidth
           />
           <TextField
             margin="dense"
             label="地址"
-            value={modifyAddress}
+            value={modifyFriend?.address}
             onChange={(event) => {
-              setModifyAddress(event.target.value);
+              setModifyFriend({ ...modifyFriend, address: event.target.value });
             }}
             fullWidth
           />
           <TextField
             margin="dense"
             label="描述"
-            value={modifyDescription}
+            value={modifyFriend?.description}
             onChange={(event) => {
-              setModifyDescription(event.target.value);
+              setModifyFriend({ ...modifyFriend, description: event.target.value });
             }}
             fullWidth
           />
           <TextField
             margin="dense"
             label="头像"
-            value={modifyAvatar}
+            value={modifyFriend?.avatar}
             onChange={(event) => {
-              setModifyAvatar(event.target.value);
+              setModifyFriend({ ...modifyFriend, avatar: event.target.value });
             }}
             fullWidth
           />
           <Typography color="textSecondary" variant="caption">
-            创建于{dayjs(modifyCreateAt).format('YYYY-MM-DD HH:mm:ss')}
+            创建于{dayjs(modifyFriend?.createdAt).format('YYYY-MM-DD HH:mm:ss')}
           </Typography>
         </DialogContent>
         <DialogActions>
