@@ -13,12 +13,14 @@ import {
   TableContainer,
   TableRow,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import ConfirmDialog from '../../components/admin/ConfirmDialog';
 import Layout from '../../components/admin/Layout';
 import apolloClient from '../../lib/apolloClient';
+import dayjs from 'dayjs';
 import { gql } from '@apollo/client';
 import prisma from '../../lib/prisma';
 
@@ -32,6 +34,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       description: true,
       avatar: true,
       order: true,
+      createdAt: true,
     },
   });
   return { props: { friends } };
@@ -45,6 +48,7 @@ interface Friend {
   avatar: string;
   order: number;
   index?: number;
+  createdAt: Date;
 }
 
 interface FriendsPageProps {
@@ -69,7 +73,10 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
         variables: { name, address, description, avatar },
       });
       if (data.createFriend) {
-        setFriends([...stateFriends, { id: data.createFriend, name, address, description, avatar, order: data.createFriend }]);
+        setFriends([
+          ...stateFriends,
+          { id: data.createFriend, name, address, description, avatar, order: data.createFriend, createdAt: new Date() },
+        ]);
         setName('');
         setAddress('');
         setDescription('');
@@ -86,6 +93,7 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
   const [modifyAddress, setModifyAddress] = useState<string>('');
   const [modifyDescription, setModifyDescription] = useState<string>('');
   const [modifyAvatar, setModifyAvatar] = useState<string>('');
+  const [modifyCreateAt, setModifyCreateAt] = useState<Date>(new Date());
   const handleModify = async () => {
     try {
       const { data } = await apolloClient.mutate({
@@ -113,6 +121,7 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
                   description: modifyDescription,
                   avatar: modifyAvatar,
                   order: modifyId,
+                  createdAt: modifyCreateAt,
                 }
               : friend
           )
@@ -317,6 +326,7 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
                       setModifyAddress(friend.address);
                       setModifyDescription(friend.description);
                       setModifyAvatar(friend.avatar);
+                      setModifyCreateAt(friend.createdAt);
                       toggleOpenModifyDialog(true);
                     }}
                   >
@@ -394,6 +404,9 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
             }}
             fullWidth
           />
+          <Typography color="textSecondary" variant="caption">
+            创建于{dayjs(modifyCreateAt).format('YYYY-MM-DD HH:mm:ss')}
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button
