@@ -194,7 +194,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
       <Head>
         <title>{article.title} - 荆棘小栈</title>
         <meta name="description" content={article.summary} />
-        <meta name="keywords" content={article.tags.join(', ')} />
+        <meta name="keywords" content={article.tags.map(({ name }) => name).join(', ')} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout title={`${article.title} - 荆棘小栈`}>
