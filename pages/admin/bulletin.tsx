@@ -84,7 +84,7 @@ const ModifyBulletinPage: NextPage<ModifyBulletinPageProps> = ({ bulletin }) => 
           <Grid item xs={12}>
             {content && (
               <Paper variant="outlined" style={{ paddingLeft: 16, paddingRight: 16 }}>
-                <Markdown>{content}</Markdown>
+                <div style={{ marginBlock: 16 }}>{content}</div>
               </Paper>
             )}
           </Grid>
