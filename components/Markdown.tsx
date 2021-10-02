@@ -1,6 +1,7 @@
 import 'highlight.js/styles/github.css';
 import Code from './markdown/Code';
 import CodeSpan from './markdown/CodeSpan';
+import MarkdownImage from './markdown/Image';
 import ReactDOMServer from 'react-dom/server';
 import hljs from 'highlight.js';
 import marked from 'marked';
@@ -14,6 +15,10 @@ const renderer: Partial<marked.Renderer> = {
   },
   codespan(code) {
     const jsx = <CodeSpan>{code}</CodeSpan>;
+    return ReactDOMServer.renderToString(jsx);
+  },
+  image(href, title, text) {
+    const jsx = <MarkdownImage href={href} title={title} text={text} />;
     return ReactDOMServer.renderToString(jsx);
   },
 };
