@@ -10,6 +10,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="image" content="https://gitee.com/jsun969/assets/raw/master/avatar.png" />
         </Head>
         <body>
           <Main />
