@@ -11,6 +11,8 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <meta name="image" content="https://gitee.com/jsun969/assets/raw/master/avatar.png" />
+          <meta property="og:site_name" content="荆棘小栈" />
+          <meta property="og:image" content="https://gitee.com/jsun969/assets/raw/master/avatar.png" />
         </Head>
         <body>
           <Main />
