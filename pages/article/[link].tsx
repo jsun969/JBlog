@@ -131,7 +131,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, link }) => {
       <Chip
         variant="outlined"
         icon={<List />}
-        label={{ code: '编程', study: '学习', website: '建站', game: '游戏', life: '生活' }[article.archive]}
+        label={{ code: '开发', study: '学习', website: '建站', game: '游戏', life: '生活' }[article.archive]}
         size="small"
         style={{ marginInline: 4 }}
         onClick={(e) => {

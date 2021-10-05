@@ -146,7 +146,7 @@ const WritePage: NextPage<WritePageProps> = ({ tagsExist, linksExist }) => {
                 variant="outlined"
                 fullWidth
               >
-                <MenuItem value="code">编程</MenuItem>
+                <MenuItem value="code">开发</MenuItem>
                 <MenuItem value="study">学习</MenuItem>
                 <MenuItem value="website">建站</MenuItem>
                 <MenuItem value="game">游戏</MenuItem>

@@ -129,7 +129,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
                 <ListItemIcon>
                   <CodeOutlined />
                 </ListItemIcon>
-                <ListItemText primary="编程" />
+                <ListItemText primary="开发" />
               </ListItem>
             </Link>
             <Link href="/archive/study" passHref>
