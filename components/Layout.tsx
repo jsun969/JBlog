@@ -226,6 +226,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
           <Toolbar>
             <Hidden smUp implementation="css">
               <IconButton
+                aria-label="open drawer"
                 edge="start"
                 color="inherit"
                 className={classes.menuButton}
