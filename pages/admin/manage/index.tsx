@@ -1,6 +1,15 @@
 import { Delete, Edit } from '@material-ui/icons';
 import { GetServerSideProps, NextPage } from 'next';
-import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import {
+  IconButton,
+  Link as MuiLink,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import Layout from '../../../components/admin/Layout';
 import Link from 'next/link';
@@ -17,6 +26,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       title: true,
       likes: true,
       watch: true,
+      link: true,
     },
   });
   return { props: { articles } };
@@ -27,6 +37,7 @@ interface Article {
   title: string;
   likes: number;
   watch: number;
+  link: string;
 }
 interface ManagePageProps {
   articles: Article[];
@@ -77,7 +88,11 @@ const ManagePage: NextPage<ManagePageProps> = ({ articles }) => {
             {stateArticles.map((article) => (
               <TableRow key={article.id}>
                 <TableCell>{article.id}</TableCell>
-                <TableCell>{article.title}</TableCell>
+                <TableCell>
+                  <Link href={`/article/${article.link}`} passHref>
+                    <MuiLink>{article.title}</MuiLink>
+                  </Link>
+                </TableCell>
                 <TableCell>{article.likes}</TableCell>
                 <TableCell>{article.watch}</TableCell>
                 <TableCell>
