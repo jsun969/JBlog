@@ -33,5 +33,6 @@ export const mutation = gql`
     deleteFriend(id: Int!): Boolean!
     modifyBulletin(content: String!): Boolean!
     modifyFriendsOrder(orders: [Order]!): Boolean!
+    deleteEmptyTags: Int!
   }
 `;

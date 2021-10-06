@@ -2,6 +2,7 @@ import { adminAuth } from './adminAuth';
 import { createArticle } from './createArticle';
 import { createFriend } from './createFriend';
 import { deleteArticle } from './deleteArticle';
+import { deleteEmptyTags } from './deleteEmptyTags';
 import { deleteFriend } from './deleteFriend';
 import { likeArticle } from './likeArticle';
 import { modifyAbout } from './modifyAbout';
@@ -23,5 +24,6 @@ export const resolvers = {
     deleteFriend,
     modifyBulletin,
     modifyFriendsOrder,
+    deleteEmptyTags,
   },
 };
