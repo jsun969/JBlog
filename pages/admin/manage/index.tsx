@@ -1,6 +1,9 @@
-import { Delete, Edit } from '@material-ui/icons';
-import { GetServerSideProps, NextPage } from 'next';
 import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   IconButton,
   Link as MuiLink,
   Table,
@@ -10,6 +13,8 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
+import { Delete, Edit } from '@material-ui/icons';
+import { GetServerSideProps, NextPage } from 'next';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import Layout from '../../../components/admin/Layout';
 import Link from 'next/link';
@@ -71,6 +76,24 @@ const ManagePage: NextPage<ManagePageProps> = ({ articles }) => {
     }
   };
 
+  const [emptyTagCount, setEmptyTagCount] = useState<number>(0);
+  const [showDeleteEmptyTagsResultDialog, toggleShowDeleteEmptyTagsResultDialog] = useState<boolean>(false);
+  const handleDeleteEmptyTags = async () => {
+    try {
+      const { data } = await apolloClient.mutate({
+        mutation: gql`
+          mutation DeleteEmptyTags {
+            deleteEmptyTags
+          }
+        `,
+      });
+      setEmptyTagCount(data.deleteEmptyTags);
+      toggleShowDeleteEmptyTagsResultDialog(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Layout select="manage">
       <TableContainer>
@@ -117,6 +140,9 @@ const ManagePage: NextPage<ManagePageProps> = ({ articles }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Button variant="contained" color="primary" style={{ marginTop: 16 }} onClick={handleDeleteEmptyTags}>
+        删除空标签
+      </Button>
       <ConfirmDialog
         title="删除文章?"
         content={`将删除文章《${deleteArticleTitle}》`}
@@ -126,6 +152,16 @@ const ManagePage: NextPage<ManagePageProps> = ({ articles }) => {
         }}
         onConfirm={handleDelete}
       />
+      <Dialog open={showDeleteEmptyTagsResultDialog} onClose={() => toggleShowDeleteEmptyTagsResultDialog(false)}>
+        <DialogTitle>删除空标签</DialogTitle>
+        <DialogContent>
+          {emptyTagCount ? (
+            <DialogContentText>删除了{emptyTagCount}个标签</DialogContentText>
+          ) : (
+            <DialogContentText>无空标签</DialogContentText>
+          )}
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };
