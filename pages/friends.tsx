@@ -62,6 +62,8 @@ const FriendsPage: NextPage<FriendsPageProps> = ({ friends }) => {
       <Head>
         <title>友链 - 荆棘小栈</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="我的好朋友们" />
+        <meta property="og:description" content="我的好朋友们" />
       </Head>
       <Layout select="friends" title="友链 - 荆棘小栈">
         <Alert severity="success">
