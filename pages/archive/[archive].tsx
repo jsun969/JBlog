@@ -53,7 +53,6 @@ const ArchivePage: NextPage<ArchivePageProps> = ({ articles, archive }) => {
     <>
       <Head>
         <title>{{ code: '开发', study: '学习', website: '建站', game: '游戏', life: '生活' }[archive]}归档 - 荆棘小栈</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout
         title={`${{ code: '开发', study: '学习', website: '建站', game: '游戏', life: '生活' }[archive]}归档 - 荆棘小栈`}

@@ -33,7 +33,6 @@ const TagsPage: NextPage<TagsPageProps> = ({ tags }) => {
     <>
       <Head>
         <title>标签 - 荆棘小栈</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout select="tags" title="标签 - 荆棘小栈">
         {tags.map((tag) => (

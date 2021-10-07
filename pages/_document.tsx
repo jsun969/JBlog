@@ -13,6 +13,7 @@ export default class MyDocument extends Document {
           <meta name="image" content="https://gitee.com/jsun969/assets/raw/master/avatar.png" />
           <meta property="og:site_name" content="荆棘小栈" />
           <meta property="og:image" content="https://gitee.com/jsun969/assets/raw/master/avatar.png" />
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
           <Main />

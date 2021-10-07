@@ -163,7 +163,6 @@ const Layout: React.FC<LayoutProps> = ({ children, select }) => {
     <>
       <Head>
         <title>荆棘小栈 - 后台</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
         <AppBar position="fixed" className={classes.appBar}>

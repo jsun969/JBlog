@@ -65,7 +65,6 @@ const TagPage: NextPage<TagPageProps> = ({ articles, tag }) => {
     <>
       <Head>
         <title>{tag}标签 - 荆棘小栈</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout title={`${tag}标签 - 荆棘小栈`} select="tags">
         <ArticleCardList articles={articles} />

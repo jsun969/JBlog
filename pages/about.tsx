@@ -49,7 +49,6 @@ const AboutPage: NextPage<AboutPageProps> = ({ article = { content: '', updateAt
     <>
       <Head>
         <title>介绍 - 荆棘小栈</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout title="介绍 - 荆棘小栈" select="about">
         <Hidden smUp implementation="css">
