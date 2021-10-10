@@ -7,7 +7,7 @@ import theme from '../lib/theme';
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="zh-CN">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <meta name="image" content="https://gitee.com/jsun969/assets/raw/master/avatar.png" />
