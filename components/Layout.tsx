@@ -23,6 +23,7 @@ import {
   Drawer,
   Hidden,
   IconButton,
+  LinearProgress,
   List,
   ListItem,
   ListItemIcon,
@@ -34,11 +35,15 @@ import {
 } from '@material-ui/core';
 import { ReactNode, useState } from 'react';
 import Link from 'next/link';
+import Router from 'next/router';
 import dayjs from 'dayjs';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 170;
 const useStyles = makeStyles((theme) => ({
+  loadingProgress: {
+    zIndex: theme.zIndex.drawer + 2,
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -219,9 +224,18 @@ const Layout: React.FC<LayoutProps> = ({ children, title, select }) => {
     );
   };
 
+  const [showLoadingProgress, toggleShowLoadingProgress] = useState<boolean>(false);
+  Router.events.on('routeChangeStart', () => {
+    toggleShowLoadingProgress(true);
+  });
+  Router.events.on('routeChangeComplete', () => {
+    toggleShowLoadingProgress(false);
+  });
+
   return (
     <>
       <header>
+        {showLoadingProgress && <LinearProgress className={classes.loadingProgress} />}
         <AppBar className={classes.appBar} position="fixed">
           <Toolbar>
             <Hidden smUp implementation="css">
