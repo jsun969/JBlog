@@ -18,6 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       },
     },
+    orderBy: { createdAt: 'desc' },
     select: {
       id: true,
       link: true,
