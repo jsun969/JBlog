@@ -12,6 +12,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   const articles = await prisma.article.findMany({
     where: { archive: context.params?.archive as string },
+    orderBy: { createdAt: 'desc' },
     select: {
       id: true,
       link: true,
